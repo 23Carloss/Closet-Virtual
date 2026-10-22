@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="150dp"
+    android:height="150dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background card -->
+    <path
+        android:fillColor="#EAD8CA"
+        android:pathData="M10,0 L90,0 A10,10 0 0 1 100,10 L100,90 A10,10 0 0 1 90,100 L10,100 A10,10 0 0 1 0,90 L0,10 A10,10 0 0 1 10,0 Z" />
+
+    <!-- Laptop/background details in top background -->
+    <path
+        android:fillColor="#785438"
+        android:pathData="M65,15 L95,15 L95,50 L65,50 Z" />
+    <path
+        android:fillColor="#5C4033"
+        android:pathData="M68,18 L92,18 L92,42 L68,42 Z" />
+
+    <!-- Cat Body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,55 Q50,45 70,55 L75,95 Q50,100 25,95 Z" />
+
+    <!-- Cat Head -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M25,35 Q50,20 75,35 Q85,60 50,65 Q15,60 25,35 Z" />
+
+    <!-- Left Ear (Grey/Brown patch) -->
+    <path
+        android:fillColor="#5C4033"
+        android:pathData="M25,32 L15,15 L38,24 Z" />
+    <!-- Right Ear (Grey/Brown patch) -->
+    <path
+        android:fillColor="#785438"
+        android:pathData="M75,32 L85,15 L62,24 Z" />
+
+    <!-- Head Grey/Brown Patch -->
+    <path
+        android:fillColor="#5C4033"
+        android:pathData="M32,24 Q50,28 68,24 Q65,40 50,42 Q35,40 32,24 Z" />
+
+    <!-- Eyes (Slightly squinting / adorable cute kitten eyes) -->
+    <path
+        android:fillColor="#3A2518"
+        android:pathData="M36,42 Q40,38 44,42 Q40,44 36,42 Z" />
+    <path
+        android:fillColor="#3A2518"
+        android:pathData="M56,42 Q60,38 64,42 Q60,44 56,42 Z" />
+
+    <!-- Pink Nose -->
+    <path
+        android:fillColor="#E08B7B"
+        android:pathData="M48,48 L52,48 L50,51 Z" />
+
+    <!-- Cute Whiskers -->
+    <path
+        android:strokeColor="#785438"
+        android:strokeWidth="1.2"
+        android:pathData="M25,48 L15,46 M25,51 L14,52 M75,48 L85,46 M75,51 L86,52" />
+
+    <!-- Cat Paws held up (paws raised up like the kitten in screenshot!) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35,52 Q32,42 38,42 Q44,42 42,52 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M58,52 Q56,42 62,42 Q68,42 65,52 Z" />
+
+    <!-- Pink Paw Pads -->
+    <path
+        android:fillColor="#FFB7B2"
+        android:pathData="M36,44 Q38,43 39,45 Q37,46 36,44 Z" />
+    <path
+        android:fillColor="#FFB7B2"
+        android:pathData="M60,44 Q62,43 63,45 Q61,46 60,44 Z" />
+
+    <!-- Lap/Pants (Blue plaid/red pattern at bottom) -->
+    <path
+        android:fillColor="#3B5998"
+        android:pathData="M0,85 L100,85 L100,100 L0,100 Z" />
+    <path
+        android:fillColor="#C0392B"
+        android:pathData="M20,85 L35,85 L30,100 L15,100 Z M60,85 L75,85 L70,100 L55,100 Z" />
+</vector>

@@ -4,31 +4,61 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
+import gonzalez.carlos.myapplication.R
 
-// Set of Material typography styles to start with
+val fontProvider = GoogleFont.Provider(
+    providerAuthority = "com.google.android.gms.fonts",
+    providerPackage = "com.google.android.gms",
+    certificates = R.array.com_google_android_gms_fonts_certs
+)
+
+val plusJakartaSansGoogleFont = GoogleFont("Plus Jakarta Sans")
+
+val PlusJakartaSansFontFamily = FontFamily(
+    Font(googleFont = plusJakartaSansGoogleFont, fontProvider = fontProvider, weight = FontWeight.Normal),
+    Font(googleFont = plusJakartaSansGoogleFont, fontProvider = fontProvider, weight = FontWeight.Medium),
+    Font(googleFont = plusJakartaSansGoogleFont, fontProvider = fontProvider, weight = FontWeight.SemiBold),
+    Font(googleFont = plusJakartaSansGoogleFont, fontProvider = fontProvider, weight = FontWeight.Bold)
+)
+
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
     titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontFamily = PlusJakartaSansFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp,
+        color = DarkBrown
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+    titleMedium = TextStyle(
+        fontFamily = PlusJakartaSansFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp,
+        color = DarkBrown
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 15.sp,
+        color = DarkBrown
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = PlusJakartaSansFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        color = DarkBrown
+    ),
+    labelLarge = TextStyle(
+        fontFamily = PlusJakartaSansFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        color = DarkBrown
+    ),
+    labelMedium = TextStyle(
+        fontFamily = PlusJakartaSansFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 13.sp,
+        color = DarkBrown
     )
-    */
 )

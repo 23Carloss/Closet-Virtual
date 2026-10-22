@@ -2,10 +2,14 @@ package gonzalez.carlos.myapplication.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val DarkBrown = Color(0xFF5C4033)
+val MediumBrown = Color(0xFF785438)
+val LightBrownBorder = Color(0xFFC9936B)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Screen and Field backgrounds
+val BackgroundCream = Color(0xFFFAF5EF)
+val OuterBackground = Color(0xFF262626)
+val FieldBackground = Color(0xFFFAF5EF)
+val TextDark = Color(0xFF5C4033)
+val TextPlaceholder = Color(0xFFB09886)
+val IconColor = Color(0xFF785438)

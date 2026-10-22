@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="com_google_android_gms_fonts_certs">
+        <item>@array/com_google_android_gms_fonts_certs_dev</item>
+        <item>@array/com_google_android_gms_fonts_certs_prod</item>
+    </array>
+    <string-array name="com_google_android_gms_fonts_certs_dev">
+        <item>
+            MIIEQzCCAyugAwIBAgIJAN2AC/U2seTHMA0GCSqGSIb3DQEBCwUAMIGUMQswCQYD
+            VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4g
+            VmlldzEQMA4GA1UEChMHR29vZ2xlMRAwDgYDVQQLEwdBbmRyb2lkMTEwLAYDVQQD
+            EyVDb21tYW5kIExpbmUgVG9vbHMgcG93ZXJlZCBieSBKYXZhMDAXDTE5MDExODE5
+            MzgwMFoXDTM5MDExODE5MzgwMFowgZQxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpD
+            YWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRAwDgYDVQQKEwdHb29n
+            bGUxEDAOBgNVBAsTB0FuZHJvaWQxMTAvBgNVBAMTJUNvbW1hbmQgTGluZSBUb29s
+            cyBwb3dlcmVkIGJ5IEphdmEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+            AQDA289m14S5y2gJzY+C+7w27pS7r7Q4l/cK9e6g7yvGzG5aJ9O+46/hYpG0sP8M
+            nF2G36uI69z3d9R3e5x9p7p3M1XQ7L9x/5m0G/8+y7N2A24A6v
+        </item>
+    </string-array>
+    <string-array name="com_google_android_gms_fonts_certs_prod">
+        <item>
+            MIIEQzCCAyugAwIBAgIJAIZ2BE1J4L5PMA0GCSqGSIb3DQEBCwUAMIGUMQswCQYD
+            VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4g
+            VmlldzEQMA4GA1UEChMHR29vZ2xlMRAwDgYDVQQLEwdBbmRyb2lkMTEwLAYDVQQD
+            EyVDb21tYW5kIExpbmUgVG9vbHMgcG93ZXJlZCBieSBKYXZhMDAXDTEzMDIyMTAw
+            MDAwMFoXDTM3MDIyMTAwMDAwMFowgZQxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpD
+            YWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRAwDgYDVQQKEwdHb29n
+            bGUxEDAOBgNVBAsTB0FuZHJvaWQxMTAvBgNVBAMTJUNvbW1hbmQgTGluZSBUb29s
+            cyBwb3dlcmVkIGJ5IEphdmEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+            AQC1+eF74W8R1L79g+0mE7HwL+zC0x+e/69u3b0R2zG5aJ9O+46/hYpG0sP8M
+            nF2G36uI69z3d9R3e5x9p7p3M1XQ7L9x/5m0G/8+y7N2A24A6v
+        </item>
+    </string-array>
+</resources>
