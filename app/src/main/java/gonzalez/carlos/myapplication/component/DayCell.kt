@@ -23,6 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.DayPosition
 import gonzalez.carlos.myapplication.model.domain.Day
 import gonzalez.carlos.myapplication.ui.theme.BackgroundCream
 import gonzalez.carlos.myapplication.ui.theme.DarkBrown
@@ -33,7 +35,7 @@ import gonzalez.carlos.myapplication.ui.theme.TextPlaceholder
 import java.time.LocalDate
 
 @Composable
-fun DayCell(dia: Day, isSelected: Boolean, hasOutfit: Boolean, onClick:()-> Unit){
+fun DayCell(dia: CalendarDay, isSelected: Boolean, hasOutfit: Boolean, onClick:()-> Unit){
     // El primer parametro es CalendarDay pero no se como importarlo :c
 
     // Colores que se van a usar en el
@@ -45,7 +47,7 @@ fun DayCell(dia: Day, isSelected: Boolean, hasOutfit: Boolean, onClick:()-> Unit
 
     //dia.position
     // O podria ser una entidad de tipo dia
-    val isCurrentMonth=dia.month == LocalDate.now().month
+    val isCurrentMonth=dia.position == DayPosition.MonthDate
     val othersMonths= if(isCurrentMonth){} else 0.3f
     Column(modifier = Modifier.fillMaxWidth().aspectRatio(1f).
     padding(2.dp).clickable{}, //onClick(dia)
@@ -56,7 +58,7 @@ fun DayCell(dia: Day, isSelected: Boolean, hasOutfit: Boolean, onClick:()-> Unit
             if(isSelected) backgroundColorSelected else DarkBrown),
             contentAlignment = Alignment.Center){
             Text(
-                text = ""+dia.dayOfMonth,
+                text = dia.date.dayOfMonth.toString(),
                 color = if(isSelected) textColorSelected else textColorDays,
                 fontSize = 14.sp
             )
@@ -72,6 +74,6 @@ fun DayCell(dia: Day, isSelected: Boolean, hasOutfit: Boolean, onClick:()-> Unit
 @Preview
 @Composable
 fun PreviewDayCell(){
-    val dia= Day(1, LocalDate.now().month,true)
+    val dia= CalendarDay(LocalDate.now(), DayPosition.MonthDate)
     DayCell(dia,true,true,{})
 }
