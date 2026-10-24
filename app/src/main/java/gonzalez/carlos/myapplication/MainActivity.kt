@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import gonzalez.carlos.myapplication.screens.MainScreen
+import gonzalez.carlos.myapplication.screens.MainScreenContainer
 import gonzalez.carlos.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
+                    MainScreenContainer(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
