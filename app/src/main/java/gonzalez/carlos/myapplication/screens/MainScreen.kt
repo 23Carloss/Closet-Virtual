@@ -53,8 +53,9 @@ fun MainScreen(
                         .background(Color(0xFF8B0000)),
                     contentAlignment = Alignment.Center
                 ) {
-                    //Template para la pfp del usuario
-                    Image(painter = painterResource(id = R.drawable.cat_placeholder),
+                    // pfp del usuario
+                    Image(
+                        painter = painterResource(id = R.drawable.profilepfp),
                         contentDescription = "Avatar de Usuario",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
