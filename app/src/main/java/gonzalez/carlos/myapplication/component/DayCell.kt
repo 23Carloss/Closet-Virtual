@@ -1,12 +1,10 @@
 package gonzalez.carlos.myapplication.component
 
-import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,46 +23,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.DayPosition
-import gonzalez.carlos.myapplication.model.domain.Day
-import gonzalez.carlos.myapplication.ui.theme.BackgroundCream
 import gonzalez.carlos.myapplication.ui.theme.DarkBrown
-import gonzalez.carlos.myapplication.ui.theme.LightBrownBorder
 import gonzalez.carlos.myapplication.ui.theme.MediumBrown
 import gonzalez.carlos.myapplication.ui.theme.TextLight
-import gonzalez.carlos.myapplication.ui.theme.TextPlaceholder
 import java.time.LocalDate
 
 @Composable
-fun DayCell(dia: CalendarDay, isSelected: Boolean, hasOutfit: Boolean, onClick:()-> Unit){
-    // El primer parametro es CalendarDay pero no se como importarlo :c
-
-    // Colores que se van a usar en el
-    val textColorDays=Color.White
-    val textColorSelected= DarkBrown
-    val backgroundColorSelected= TextLight
-    val backgroundCalendar=DarkBrown
-    val ColorEvent= MediumBrown
-
-    //dia.position
-    // O podria ser una entidad de tipo dia
+fun DayCell(dia: CalendarDay, isSelected: Boolean,
+            hasOutfit: Boolean, onClick:()-> Unit){
     val isCurrentMonth=dia.position == DayPosition.MonthDate
-    val othersMonths= if(isCurrentMonth){} else 0.3f
+    val othersMonths= if(isCurrentMonth)1f else 0.3f
     Column(modifier = Modifier.fillMaxWidth().aspectRatio(1f).
     padding(2.dp).clickable{}, //onClick(dia)
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
         Box(modifier =
         Modifier.size(32.dp).clip(CircleShape).background(
-            if(isSelected) backgroundColorSelected else DarkBrown),
+            if(isSelected) TextLight.copy(alpha =0.3f) else Color.Transparent),
             contentAlignment = Alignment.Center){
             Text(
                 text = dia.date.dayOfMonth.toString(),
-                color = if(isSelected) textColorSelected else textColorDays,
+                color = if(isSelected) DarkBrown else Color.White.copy(alpha = othersMonths),
                 fontSize = 14.sp
             )
         }
         if(hasOutfit && isCurrentMonth){
-            Box(modifier = Modifier.padding(top=5.dp).size(4.dp).clip(CircleShape).background(ColorEvent))
+            Box(modifier = Modifier.padding(top=5.dp).
+            size(4.dp).clip(CircleShape).background(MediumBrown))
         }else{
             Spacer(modifier = Modifier.height(4.dp))
         }

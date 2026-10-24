@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -28,11 +27,8 @@ import androidx.compose.ui.unit.sp
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
-import gonzalez.carlos.myapplication.ui.theme.BackgroundCream
 import gonzalez.carlos.myapplication.ui.theme.DarkBrown
-import gonzalez.carlos.myapplication.ui.theme.MediumBrown
 import gonzalez.carlos.myapplication.ui.theme.TextPlaceholder
-import java.nio.file.WatchEvent
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -41,21 +37,12 @@ import java.util.Locale
 @Composable
 fun CalendarComponent(modifier: Modifier= Modifier, onChangeMonth: (YearMonth) -> Unit={},
                       onDayClick:(LocalDate) -> Unit={}){
-
-    // Colores que se van a usar en el contenedor del Calendario
-    val textColorMoth=Color.White
-    val textColor= TextPlaceholder
-    val backgroundColor= BackgroundCream
-    val backgroundCalendar=DarkBrown
-
     // Estado del calendario
-    val currentMonth= remember{ YearMonth.now()}
+    val currentMonth= remember{YearMonth.now()}
     val startMonth= remember{currentMonth.minusMonths(100)}
     val endMonth= remember{currentMonth.plusMonths(100)}
-    val daysWeek= remember { daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY) }
-
-    val daySelect by remember { mutableStateOf(LocalDate.now()) }
-
+    val daysWeek= remember {daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY)}
+    val daySelect by remember {mutableStateOf(LocalDate.now())}
     // El estado del calendario
     val calendarState= rememberCalendarState(
         startMonth=startMonth,
@@ -66,27 +53,27 @@ fun CalendarComponent(modifier: Modifier= Modifier, onChangeMonth: (YearMonth) -
     val monthV= calendarState.firstVisibleMonth.yearMonth
     LaunchedEffect(monthV) {onChangeMonth(monthV) }
     //HorizontalCalendar(state = ca)
-
     Card(modifier=Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors= CardDefaults.cardColors(containerColor = backgroundCalendar)
+        colors= CardDefaults.cardColors(containerColor = DarkBrown)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text= monthV.month.getDisplayName(java.time.format.TextStyle.FULL,
                     Locale("es","ES")).replaceFirstChar{it.uppercase()},
-                    color=textColorMoth,
+                    // lo de arriba es para traducirlo en español
+                    color= Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier= Modifier.width(8.dp))
                 Text(text= monthV.year.toString(),
                     color=TextPlaceholder,
-                    fontSize = 16.sp,
+                    fontSize = 16.sp
                 )
                 //Los botones para cambiar el mes
                 IconButton(onClick = {}) {
@@ -96,17 +83,17 @@ fun CalendarComponent(modifier: Modifier= Modifier, onChangeMonth: (YearMonth) -
                     //Icon o la imagen del boton
                 }
             }
-
         }
         Spacer(modifier= Modifier.width(16.dp))
         Row(modifier=Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround) {
             daysWeek.forEach { day ->
-                val formatDay= day.getDisplayName(java.time.format.TextStyle.SHORT,
+                val formatDay= day.getDisplayName(
+                    java.time.format.TextStyle.SHORT,
                     Locale("es","ES"))
                 Text(
                     text = formatDay,
-                    color=textColor,
+                    color= TextPlaceholder,
                     fontSize = 12.sp,
                     modifier = Modifier.weight(1f),
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -122,7 +109,7 @@ fun CalendarComponent(modifier: Modifier= Modifier, onChangeMonth: (YearMonth) -
                     dia =day,
                     isSelected = day.date==daySelect,
                     hasOutfit = hasOutfit
-                ) { }// el click de los dias en el calendario
+                ) { }// el onclick de los dias en el calendario
             }
         )
         Spacer(modifier= Modifier.width(16.dp))
