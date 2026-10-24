@@ -39,8 +39,8 @@ import java.time.YearMonth
 import java.util.Locale
 
 @Composable
-fun CalendarComponent(modifier: Modifier, onChangeMonth: (YearMonth) -> Unit,
-                      onDayClick:(LocalDate) -> Unit ){
+fun CalendarComponent(modifier: Modifier= Modifier, onChangeMonth: (YearMonth) -> Unit={},
+                      onDayClick:(LocalDate) -> Unit={}){
 
     // Colores que se van a usar en el contenedor del Calendario
     val textColorMoth=Color.White
@@ -53,6 +53,7 @@ fun CalendarComponent(modifier: Modifier, onChangeMonth: (YearMonth) -> Unit,
     val startMonth= remember{currentMonth.minusMonths(100)}
     val endMonth= remember{currentMonth.plusMonths(100)}
     val daysWeek= remember { daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY) }
+
     val daySelect by remember { mutableStateOf(LocalDate.now()) }
 
     // El estado del calendario
@@ -70,7 +71,7 @@ fun CalendarComponent(modifier: Modifier, onChangeMonth: (YearMonth) -> Unit,
         shape = RoundedCornerShape(24.dp),
         colors= CardDefaults.cardColors(containerColor = backgroundCalendar)
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -84,11 +85,9 @@ fun CalendarComponent(modifier: Modifier, onChangeMonth: (YearMonth) -> Unit,
                 )
                 Spacer(modifier= Modifier.width(8.dp))
                 Text(text= monthV.year.toString(),
-                    color=textColorMoth,
+                    color=TextPlaceholder,
                     fontSize = 16.sp,
                 )
-            }
-            Row{
                 //Los botones para cambiar el mes
                 IconButton(onClick = {}) {
                     //Icon o la imagen del boton
@@ -97,13 +96,16 @@ fun CalendarComponent(modifier: Modifier, onChangeMonth: (YearMonth) -> Unit,
                     //Icon o la imagen del boton
                 }
             }
+
         }
         Spacer(modifier= Modifier.width(16.dp))
         Row(modifier=Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround) {
             daysWeek.forEach { day ->
+                val formatDay= day.getDisplayName(java.time.format.TextStyle.SHORT,
+                    Locale("es","ES"))
                 Text(
-                    text = day.name.take(1),
+                    text = formatDay,
                     color=textColor,
                     fontSize = 12.sp,
                     modifier = Modifier.weight(1f),
