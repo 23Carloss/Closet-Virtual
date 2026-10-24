@@ -20,6 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
+import gonzalez.carlos.myapplication.ui.components.BotonesNavegacion
+import gonzalez.carlos.myapplication.ui.components.CampoPrenda
+import gonzalez.carlos.myapplication.ui.components.FotoPrenda
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSans
 
 @Composable
@@ -61,8 +64,21 @@ fun RegistrarPrendaScreen() {
         Spacer(modifier = Modifier.height(16.dp))
         // llamar a una funcion para crear el campox
         // de la foto reducir codigo
-
+        FotoPrenda()
         //me quede en tratar de crear la funcion del campo para la foto
+        Spacer(modifier = Modifier.height(16.dp))
+        CampoPrenda(
+            etiqueta = "Nombre de la prenda",
+            ejemplo = "Ej. Blazer oversize camel"
+        )
+
+        CampoPrenda(
+            etiqueta = "Categoria",
+            ejemplo = "Selecciona una categoría"
+        )
+        // me falta como hacer lo de los colores
+        //aqui me quedee
+        BotonesNavegacion()
         Spacer(modifier = Modifier.height(16.dp))
 
 
