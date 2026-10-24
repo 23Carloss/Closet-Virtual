@@ -1,5 +1,6 @@
 package gonzalez.carlos.myapplication.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
+import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.ui.theme.DarkBrown
 import gonzalez.carlos.myapplication.ui.theme.TextPlaceholder
 import java.time.DayOfWeek
@@ -70,17 +74,26 @@ fun CalendarComponent(modifier: Modifier= Modifier, onChangeMonth: (YearMonth) -
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier= Modifier.width(8.dp))
+                Spacer(modifier= Modifier.width(3.dp))
                 Text(text= monthV.year.toString(),
                     color=TextPlaceholder,
                     fontSize = 16.sp
                 )
+                Spacer(modifier = Modifier.padding(horizontal = 6.dp))
                 //Los botones para cambiar el mes
-                IconButton(onClick = {}) {
-                    //Icon o la imagen del boton
+                Surface(shape = RoundedCornerShape(50),
+                    color= Color.Transparent,
+                    onClick = {}
+                ){
+                    Image(painter = painterResource(R.drawable.leftarrow),
+                        "Atras")
                 }
-                IconButton(onClick = {}) {
-                    //Icon o la imagen del boton
+                Surface(shape = RoundedCornerShape(50),
+                    color= Color.Transparent,
+                    onClick = {}
+                ){
+                    Image(painter = painterResource(R.drawable.rightarrow),
+                        "Adelante")
                 }
             }
         }

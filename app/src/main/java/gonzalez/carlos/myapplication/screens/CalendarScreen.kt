@@ -84,9 +84,9 @@ fun CalendarScreen(){
                     java.util.Locale("es","ES"))
                 Text(text= selectedDate.format(formatDate),
                     color = TextDark,
-                    fontSize = 12.sp)
+                    fontSize = 14.sp)
                 // Para dar un ejemplo que tiene un outfit
-                Text("1 Outfit", fontSize = 12.sp, color = MediumBrown)
+                Text("1 Outfit", fontSize = 14.sp, color = MediumBrown)
             }
             Text("Outfit del Día", fontSize = 22.sp, fontWeight = FontWeight.Bold,
                 color = MediumBrown, modifier = Modifier.padding(vertical = 16.dp))

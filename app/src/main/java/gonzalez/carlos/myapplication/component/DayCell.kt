@@ -39,7 +39,7 @@ fun DayCell(dia: CalendarDay, isSelected: Boolean,
         verticalArrangement = Arrangement.Center) {
         Box(modifier =
         Modifier.size(32.dp).clip(CircleShape).background(
-            if(isSelected) TextLight.copy(alpha =0.3f) else Color.Transparent),
+            if(isSelected) TextLight else Color.Transparent),
             contentAlignment = Alignment.Center){
             Text(
                 text = dia.date.dayOfMonth.toString(),
