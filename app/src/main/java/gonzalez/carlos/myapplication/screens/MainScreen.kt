@@ -1,17 +1,24 @@
 package gonzalez.carlos.myapplication.screens
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.FilterAlt
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -19,30 +26,48 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.data.ClothingItem
+import gonzalez.carlos.myapplication.data.OutfitItem
 import gonzalez.carlos.myapplication.data.sampleClothingItems
+import gonzalez.carlos.myapplication.data.sampleOutfitItems
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
     onItemClick: (ClothingItem) -> Unit = {},
+    onOutfitClick: (OutfitItem) -> Unit = {},
+    onSeeAllClothesClick: () -> Unit = {},
+    onSeeAllOutfitsClick: () -> Unit = {},
     onAddClick: () -> Unit = {},
-    selectedNavTab: Int = 0,
+    selectedNavTab: Int = 2,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
     var searchQuery by remember { mutableStateOf("") }
-    var selectedCategory by remember { mutableStateOf("Todos") }
-    val categories = listOf("Todos", "Camisas", "Pantalones", "Zapatos")
+    var outfitList by remember { mutableStateOf(sampleOutfitItems) }
 
-    Box(modifier = modifier.fillMaxSize()
+    val filteredClothes = sampleClothingItems.filter { item ->
+        searchQuery.isEmpty() || item.title.contains(searchQuery, ignoreCase = true) || item.brand.contains(searchQuery, ignoreCase = true)
+    }
+
+    val filteredOutfits = outfitList.filter { outfit ->
+        searchQuery.isEmpty() || outfit.title.contains(searchQuery, ignoreCase = true) || outfit.tags.any { it.contains(searchQuery, ignoreCase = true) }
+    }
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
             .background(BackgroundCream)
     ) {
-        Column(modifier = Modifier.fillMaxSize()
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Row(modifier = Modifier.fillMaxWidth()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -53,7 +78,6 @@ fun MainScreen(
                         .background(Color(0xFF8B0000)),
                     contentAlignment = Alignment.Center
                 ) {
-                    // pfp del usuario
                     Image(
                         painter = painterResource(id = R.drawable.profilepfp),
                         contentDescription = "Avatar de Usuario",
@@ -65,25 +89,33 @@ fun MainScreen(
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Column {
-                    Text(text = "CloudCloset",
+                    Text(
+                        text = "CloudCloset",
                         fontFamily = PlusJakartaSansFontFamily,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 13.sp, color = DarkBrown
+                        fontSize = 13.sp,
+                        color = DarkBrown
                     )
-                    Text(text = "Bienvenido, @Nombre!",
+                    Text(
+                        text = "Bienvenido, @Nombre!",
                         fontFamily = PlusJakartaSansFontFamily,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp, color = DarkBrown
+                        fontSize = 16.sp,
+                        color = DarkBrown
                     )
                 }
             }
 
-            Row(modifier = Modifier.fillMaxWidth()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp))
-            {
-                Surface(modifier = Modifier.weight(1f)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Surface(
+                    modifier = Modifier
+                        .weight(1f)
                         .height(46.dp),
                     shape = RoundedCornerShape(12.dp),
                     color = FieldBackground,
@@ -108,7 +140,7 @@ fun MainScreen(
                         ) {
                             if (searchQuery.isEmpty()) {
                                 Text(
-                                    text = "Buscar por prenda, marca...",
+                                    text = "Buscar prendas, outfits...",
                                     fontFamily = PlusJakartaSansFontFamily,
                                     fontSize = 14.sp,
                                     color = TextPlaceholder
@@ -131,7 +163,9 @@ fun MainScreen(
                 }
 
                 Surface(
-                    modifier = Modifier.size(46.dp).clickable { },
+                    modifier = Modifier
+                        .size(46.dp)
+                        .clickable { },
                     shape = RoundedCornerShape(12.dp),
                     color = FieldBackground,
                     border = BorderStroke(1.5.dp, LightBrownBorder)
@@ -152,66 +186,113 @@ fun MainScreen(
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            Row(modifier = Modifier.fillMaxWidth()
-                    .horizontalScroll(rememberScrollState())
-                    .padding(horizontal = 20.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
             ) {
-                categories.forEach { cat ->
-                    val isSelected = selectedCategory == cat
-                    Surface(
-                        modifier = Modifier
-                            .height(34.dp)
-                            .clickable { selectedCategory = cat },
-                        shape = RoundedCornerShape(18.dp),
-                        color = if (isSelected) MediumBrown else FieldBackground,
-                        border = if (isSelected) null else BorderStroke(1.5.dp, LightBrownBorder)
-                    ) {
-                        Box(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = cat,
-                                fontFamily = PlusJakartaSansFontFamily,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                                fontSize = 13.sp,
-                                color = if (isSelected) Color.White else DarkBrown
-                            )
-                        }
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(text = "Mostrando ${sampleClothingItems.size} prendas",
-                fontFamily = PlusJakartaSansFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 15.sp,
-                color = DarkBrown,
-                modifier = Modifier.padding(horizontal = 20.dp)
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Box(modifier = Modifier.weight(1f).fillMaxWidth())
-            {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(bottom = 80.dp)
+                        .verticalScroll(rememberScrollState())
+                        .padding(bottom = 80.dp)
                 ) {
-                    items(sampleClothingItems) { item ->
-                        ClothingCard(
-                            item = item,
-                            onClick = { onItemClick(item) }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Mis Prendas",
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = DarkBrown
+                        )
+
+                        Text(
+                            text = "Ver todas",
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 13.sp,
+                            color = MediumBrown,
+                            modifier = Modifier.clickable { onSeeAllClothesClick() }
                         )
                     }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState())
+                            .padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        filteredClothes.forEach { item ->
+                            Box(modifier = Modifier.width(160.dp)) {
+                                ClothingCard(
+                                    item = item,
+                                    onClick = { onItemClick(item) }
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Mis Outfits",
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = DarkBrown
+                        )
+
+                        Text(
+                            text = "Ver todos",
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 13.sp,
+                            color = MediumBrown,
+                            modifier = Modifier.clickable { onSeeAllOutfitsClick() }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState())
+                            .padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        filteredOutfits.forEach { outfit ->
+                            Box(modifier = Modifier.width(160.dp)) {
+                                OutfitCard(
+                                    item = outfit,
+                                    onClick = { onOutfitClick(outfit) },
+                                    onFavoriteToggle = {
+                                        outfitList = outfitList.map {
+                                            if (it.id == outfit.id) it.copy(isFavorite = !it.isFavorite) else it
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
 
                 FloatingActionButton(
@@ -226,7 +307,7 @@ fun MainScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Agregar Prenda",
+                        contentDescription = "Agregar",
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -236,85 +317,6 @@ fun MainScreen(
                 selectedTab = selectedNavTab,
                 onTabSelected = onNavTabSelected
             )
-        }
-    }
-}
-
-@Composable
-fun ClothingCard(
-    item: ClothingItem,
-    onClick: () -> Unit
-) {
-    Card(modifier = Modifier.fillMaxWidth().height(220.dp).clickable { onClick() },
-        shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF3E2A1E)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
-        Column(modifier = Modifier.fillMaxSize().padding(12.dp),
-            verticalArrangement = Arrangement.SpaceBetween) {
-            Box(modifier = Modifier.fillMaxWidth().height(100.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color(0xFF2B1D15)),
-                contentAlignment = Alignment.Center) {
-                //Template para la imagen de la prenda
-                Icon(imageVector = Icons.Outlined.Checkroom,
-                    contentDescription = null,
-                    tint = Color.White.copy(alpha = 0.15f),
-                    modifier = Modifier.size(48.dp))
-            }
-
-            Column {
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = item.category.uppercase(), fontFamily = PlusJakartaSansFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 10.sp, color = Color(0xFFC87A4B))
-
-                    Box(modifier = Modifier.size(10.dp).clip(CircleShape).background(item.dotColor))
-                }
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(text = item.title,
-                    fontFamily = PlusJakartaSansFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp, color = Color.White, maxLines = 1)
-
-                Text(text = item.brand, fontFamily = PlusJakartaSansFontFamily,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp, color = Color.White.copy(alpha = 0.7f))
-
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    item.tags.forEach { tag ->
-                        Surface(shape = RoundedCornerShape(10.dp), color = Color(0xFF503828)) {
-                            Text(text = tag, fontFamily = PlusJakartaSansFontFamily,
-                                fontWeight = FontWeight.Medium, fontSize = 10.sp,
-                                color = Color.White.copy(alpha = 0.9f),
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun MainScreenContainer(
-    modifier: Modifier = Modifier
-) {
-    var selectedItem by remember { mutableStateOf<ClothingItem?>(null) }
-
-    Box(modifier = modifier) {
-        if (selectedItem != null) {
-            DetallePrendaScreen(
-                item = selectedItem!!,
-                onBackClick = { selectedItem = null }
-            )
-        } else {
-            MainScreen(onItemClick = { item -> selectedItem = item })
         }
     }
 }

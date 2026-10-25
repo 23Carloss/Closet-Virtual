@@ -44,7 +44,7 @@ fun AppNavigation(
                     navController.navigate(RegisterRoute)
                 },
                 onLoginSuccess = {
-                    navController.navigate(ArmarioRoute) {
+                    navController.navigate(InicioRoute) {
                         popUpTo<LoginRoute> { inclusive = true }
                     }
                 },
@@ -70,7 +70,7 @@ fun AppNavigation(
         }
 
         composable<ArmarioRoute> {
-            MainScreen(
+            ClosetScreen(
                 onItemClick = { item ->
                     navController.navigate(DetallePrendaRoute(item.id))
                 },
@@ -124,6 +124,12 @@ fun AppNavigation(
                 onItemClick = { item ->
                     navController.navigate(DetallePrendaRoute(item.id))
                 },
+                onSeeAllClothesClick = {
+                    navigateToTab(0)
+                },
+                onSeeAllOutfitsClick = {
+                    navigateToTab(1)
+                },
                 onAddClick = {
                     navController.navigate(RegistrarPrendaRoute)
                 },
@@ -133,13 +139,18 @@ fun AppNavigation(
         }
 
         composable<OutfitsRoute> {
-            MainScreen(
-                onItemClick = { item ->
-                    navController.navigate(DetallePrendaRoute(item.id))
-                },
-                onAddClick = {
-                    navController.navigate(RegistrarPrendaRoute)
-                },
+            OutfitsScreen(
+                onBackClick = { navController.popBackStack() },
+                onAddClick = { navController.navigate(CrearOutfitRoute) },
+                selectedNavTab = 1,
+                onNavTabSelected = navigateToTab
+            )
+        }
+
+        composable<CrearOutfitRoute> {
+            CrearOutfitScreen(
+                onBackClick = { navController.popBackStack() },
+                onSaveSuccess = { navController.popBackStack() },
                 selectedNavTab = 1,
                 onNavTabSelected = navigateToTab
             )

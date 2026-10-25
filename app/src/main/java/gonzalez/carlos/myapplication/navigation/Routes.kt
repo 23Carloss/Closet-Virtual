@@ -27,4 +27,7 @@ object ProfileRoute
 object OutfitsRoute
 
 @Serializable
+object CrearOutfitRoute
+
+@Serializable
 object InicioRoute
