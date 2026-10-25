@@ -1,4 +1,4 @@
-package gonzalez.carlos.myapplication.ui.components
+package gonzalez.carlos.myapplication.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,17 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
+import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
 fun FotoPrenda(){
     Column(modifier = Modifier.fillMaxWidth()
         .border( // este sirve pa recrear el disenho q le pusimos al figma
             width = 1.dp,
-            color = colorResource(id = R.color.fotoPrendaBackground),
+            color = colorResource(id = R.color.Stroke),
             shape = RoundedCornerShape(15.dp)
         )
         .background(color = colorResource(id = R.color.fotoPrendaBackground))
@@ -50,7 +52,9 @@ fun FotoPrenda(){
             Text(
                 "Añade una foto de tu prenda",
                 color = colorResource(id = R.color.fontColor),
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                fontFamily = PlusJakartaSansFontFamily,
+                fontWeight = FontWeight.Normal,
             )
         }
 
@@ -58,7 +62,8 @@ fun FotoPrenda(){
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+
         ) {
             OutlinedButton(
                 onClick = {}, // este sera para ir a la camara
@@ -66,7 +71,9 @@ fun FotoPrenda(){
 
             ) {
                 //agregar asset de la camara
-                Text("Cámara", color = colorResource(id = R.color.fontColor))
+                Text("Cámara", color = colorResource(id = R.color.fontColor),
+                    fontFamily = PlusJakartaSansFontFamily,
+                    fontWeight = FontWeight.Bold)
             }
 
             OutlinedButton(
@@ -74,7 +81,9 @@ fun FotoPrenda(){
                 modifier = Modifier.weight(1f).background(color = colorResource(id = R.color.fotoPrendaBackground))
             ) {
                 //agregar asset de la galeria
-                Text("Galería", color = colorResource(id = R.color.fontColor))
+                Text("Galería", color = colorResource(id = R.color.fontColor),
+                    fontFamily = PlusJakartaSansFontFamily,
+                    fontWeight = FontWeight.Bold)
             }
         }
     }

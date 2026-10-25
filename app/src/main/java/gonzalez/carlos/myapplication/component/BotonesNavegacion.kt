@@ -1,4 +1,4 @@
-package gonzalez.carlos.myapplication.ui.components
+package gonzalez.carlos.myapplication.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import gonzalez.carlos.myapplication.R
-import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSans
+import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
 fun BotonesNavegacion(){
@@ -30,7 +30,7 @@ fun BotonesNavegacion(){
         ) {
             Text("Atras",
                 color = colorResource(id = R.color.fontColor),
-                fontFamily = PlusJakartaSans,
+                fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold
             )
 
@@ -42,7 +42,7 @@ fun BotonesNavegacion(){
                         buttonColors(containerColor = colorResource(id = R.color.ButtonContinueBackground))
         ){
             Text("Continuar ->",
-                fontFamily = PlusJakartaSans,
+                fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold
             )
 

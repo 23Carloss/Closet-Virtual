@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,13 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
-import gonzalez.carlos.myapplication.ui.components.BotonesNavegacion
-import gonzalez.carlos.myapplication.ui.components.CampoPrenda
-import gonzalez.carlos.myapplication.ui.components.FotoPrenda
-import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSans
+import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
-fun RegistrarPrendaScreen() {
+fun RegistrerPrenda2() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,55 +35,33 @@ fun RegistrarPrendaScreen() {
             text = "Registrar Prenda",
             color = colorResource(id = R.color.fontColor),
             fontSize = 30.sp,
-            fontFamily = PlusJakartaSans,
+            fontFamily = PlusJakartaSansFontFamily,
             fontWeight = FontWeight.Bold,
         )
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Empecemos por lo basico",
+            text = "Dale sus detalles",
             color = colorResource(id = R.color.fontColor),
             fontSize = 35.sp,
-            fontFamily = PlusJakartaSans,
+            fontFamily = PlusJakartaSansFontFamily,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text( text = "Añade una foto y cuentanos sobre la prenda",
+        Text(
+            text = "Así será más fácil encontrarla y combinarla",
             color = colorResource(id = R.color.fontColor),
             fontSize = 17.sp,
-            fontFamily = PlusJakartaSans,
+            fontFamily = PlusJakartaSansFontFamily,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        // llamar a una funcion para crear el campox
-        // de la foto reducir codigo
-        FotoPrenda()
-        //me quede en tratar de crear la funcion del campo para la foto
-        Spacer(modifier = Modifier.height(16.dp))
-        CampoPrenda(
-            etiqueta = "Nombre de la prenda",
-            ejemplo = "Ej. Blazer oversize camel"
-        )
-
-        CampoPrenda(
-            etiqueta = "Categoria",
-            ejemplo = "Selecciona una categoría"
-        )
-        // me falta como hacer lo de los colores
-        //aqui me quedee
-        BotonesNavegacion()
-        Spacer(modifier = Modifier.height(16.dp))
-
-
-
     }
 }
-
 @Preview
 @Composable
-fun previewRegistroPrenda(){
-    RegistrarPrendaScreen()
+fun previewRegistrerPrenda2(){
+    RegistrerPrenda2()
 }

@@ -1,4 +1,4 @@
-package gonzalez.carlos.myapplication.ui.components
+package gonzalez.carlos.myapplication.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,14 +14,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
-import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSans
+import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
 fun CampoPrenda(etiqueta: String, ejemplo: String){
@@ -29,13 +28,14 @@ fun CampoPrenda(etiqueta: String, ejemplo: String){
     var texto by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxWidth()
-        .background(colorResource(id = R.color.modoClaroBackground))){
+        .background(colorResource(id = R.color.modoClaroBackground))
+        ){
         Text(
            text= etiqueta,
             color = colorResource(id = R.color.fontColor),
             fontSize = 16.sp,
-            fontFamily = PlusJakartaSans,
-            fontWeight = FontWeight.Bold
+            fontFamily = PlusJakartaSansFontFamily,
+            fontWeight = FontWeight.Normal
         )
         Spacer(modifier = Modifier.height(6.dp))
 
@@ -43,7 +43,11 @@ fun CampoPrenda(etiqueta: String, ejemplo: String){
             value = texto,
             onValueChange = {texto = it},
             placeholder = {
-                Text(ejemplo, color = colorResource(id = R.color.fontColor))
+                Text(ejemplo, color = colorResource(id = R.color.fontColor),
+                    fontSize = 12.sp,
+                    fontFamily = PlusJakartaSansFontFamily,
+                    fontWeight = FontWeight.Normal
+                    )
                           },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,

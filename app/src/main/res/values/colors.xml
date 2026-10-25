@@ -5,4 +5,5 @@
     <color name="AddImageBackground">#EDE0D1 </color>
     <color name="fotoPrendaBackground">#FEFBF5 </color>
     <color name="ButtonContinueBackground">#8B7355 </color>
+    <color name="Stroke">#C9B3A0</color>
 </resources>
