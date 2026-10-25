@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Fingerprint
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
@@ -22,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,12 +41,17 @@ fun ProfileScreen(
     userProfile: UserProfile = sampleUserProfile,
     onBackClick: () -> Unit = {},
     onEditPhotoClick: () -> Unit = {},
-    onEditInfoClick: () -> Unit = {},
     onLogoutClick: () -> Unit = {},
     selectedNavTab: Int = 4,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
+    var name by remember { mutableStateOf(userProfile.name) }
+    var phone by remember { mutableStateOf(userProfile.phone) }
     var biometricsEnabled by remember { mutableStateOf(userProfile.isBiometricsEnabled) }
+
+    var isEditingInfo by remember { mutableStateOf(false) }
+    var tempName by remember { mutableStateOf(name) }
+    var tempPhone by remember { mutableStateOf(phone) }
 
     Box(
         modifier = modifier
@@ -53,8 +61,7 @@ fun ProfileScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Row(modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 14.dp),
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
@@ -109,7 +116,7 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = userProfile.name,
+                    text = name,
                     fontFamily = PlusJakartaSansFontFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
@@ -155,14 +162,20 @@ fun ProfileScreen(
                         color = DarkBrown
                     )
 
-                    Text(
-                        text = "Editar Información",
-                        fontFamily = PlusJakartaSansFontFamily,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 13.sp,
-                        color = MediumBrown,
-                        modifier = Modifier.clickable { onEditInfoClick() }
-                    )
+                    if (!isEditingInfo) {
+                        Text(
+                            text = "Editar Información",
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 13.sp,
+                            color = MediumBrown,
+                            modifier = Modifier.clickable {
+                                tempName = name
+                                tempPhone = phone
+                                isEditingInfo = true
+                            }
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -173,72 +186,160 @@ fun ProfileScreen(
                     color = FieldBackground,
                     border = BorderStroke(1.5.dp, LightBrownBorder)
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 14.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
+                    if (isEditingInfo) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 16.dp)
                         ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Person,
-                                contentDescription = null,
-                                tint = MediumBrown,
-                                modifier = Modifier.size(24.dp)
+                            ProfileEditField(
+                                label = "Nombre Completo",
+                                value = tempName,
+                                onValueChange = { tempName = it }
                             )
 
-                            Spacer(modifier = Modifier.width(14.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
 
-                            Column {
-                                Text(
-                                    text = "NOMBRE COMPLETO",
-                                    fontFamily = PlusJakartaSansFontFamily,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 10.sp,
-                                    color = DarkBrown
-                                )
-                                Spacer(modifier = Modifier.height(2.dp))
-                                Text(
-                                    text = userProfile.name,
-                                    fontFamily = PlusJakartaSansFontFamily,
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontSize = 14.sp,
-                                    color = DarkBrown
-                                )
+                            ProfileEditField(
+                                label = "Teléfono",
+                                value = tempPhone,
+                                onValueChange = { tempPhone = it }
+                            )
+
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            ProfileEditField(
+                                label = "Correo Electrónico (Bloqueado)",
+                                value = userProfile.email,
+                                readOnly = true,
+                                trailingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Lock,
+                                        contentDescription = "Correo Bloqueado",
+                                        tint = MediumBrown,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                }
+                            )
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Button(
+                                    onClick = {
+                                        name = tempName
+                                        phone = tempPhone
+                                        isEditingInfo = false
+                                    },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(42.dp),
+                                    shape = RoundedCornerShape(10.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = DarkBrown,
+                                        contentColor = BackgroundCream
+                                    )
+                                ) {
+                                    Text(
+                                        text = "Guardar",
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 14.sp,
+                                        color = BackgroundCream
+                                    )
+                                }
+
+                                OutlinedButton(
+                                    onClick = { isEditingInfo = false },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(42.dp),
+                                    shape = RoundedCornerShape(10.dp),
+                                    border = BorderStroke(1.dp, MediumBrown),
+                                    colors = ButtonDefaults.outlinedButtonColors(
+                                        contentColor = MediumBrown
+                                    )
+                                ) {
+                                    Text(
+                                        text = "Cancelar",
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 14.sp,
+                                        color = MediumBrown
+                                    )
+                                }
                             }
                         }
-
-                        Spacer(modifier = Modifier.height(14.dp))
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
+                    } else {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 14.dp)
                         ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Notifications,
-                                contentDescription = null,
-                                tint = MediumBrown,
-                                modifier = Modifier.size(24.dp)
-                            )
-
-                            Spacer(modifier = Modifier.width(14.dp))
-
-                            Column {
-                                Text(
-                                    text = "TELÉFONO",
-                                    fontFamily = PlusJakartaSansFontFamily,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 10.sp,
-                                    color = DarkBrown
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Person,
+                                    contentDescription = null,
+                                    tint = MediumBrown,
+                                    modifier = Modifier.size(24.dp)
                                 )
-                                Spacer(modifier = Modifier.height(2.dp))
-                                Text(
-                                    text = userProfile.phone,
-                                    fontFamily = PlusJakartaSansFontFamily,
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontSize = 14.sp,
-                                    color = DarkBrown
+
+                                Spacer(modifier = Modifier.width(14.dp))
+
+                                Column {
+                                    Text(
+                                        text = "NOMBRE COMPLETO",
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 10.sp,
+                                        color = DarkBrown
+                                    )
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = name,
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 14.sp,
+                                        color = DarkBrown
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(14.dp))
+
+                            Row(verticalAlignment = Alignment.CenterVertically)
+                            {
+                                Icon(
+                                    imageVector = Icons.Outlined.Notifications,
+                                    contentDescription = null,
+                                    tint = MediumBrown,
+                                    modifier = Modifier.size(24.dp)
                                 )
+
+                                Spacer(modifier = Modifier.width(14.dp))
+
+                                Column {
+                                    Text(
+                                        text = "TELÉFONO",
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 10.sp,
+                                        color = DarkBrown
+                                    )
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = phone,
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 14.sp,
+                                        color = DarkBrown
+                                    )
+                                }
                             }
                         }
                     }
@@ -263,9 +364,7 @@ fun ProfileScreen(
                     color = FieldBackground,
                     border = BorderStroke(1.5.dp, LightBrownBorder)
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
+                    Row(modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -336,6 +435,66 @@ fun ProfileScreen(
                 selectedTab = selectedNavTab,
                 onTabSelected = onNavTabSelected
             )
+        }
+    }
+}
+
+@Composable
+fun ProfileEditField(
+    label: String,
+    value: String,
+    onValueChange: (String) -> Unit = {},
+    readOnly: Boolean = false,
+    trailingIcon: @Composable (() -> Unit)? = null
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = label.uppercase(),
+            fontFamily = PlusJakartaSansFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 10.sp,
+            color = DarkBrown
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(44.dp),
+            shape = RoundedCornerShape(10.dp),
+            color = if (readOnly) Color(0xFFEDE5DA) else FieldBackground,
+            border = BorderStroke(1.dp, if (readOnly) Color(0xFFD8C8B8) else LightBrownBorder)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    BasicTextField(
+                        value = value,
+                        onValueChange = onValueChange,
+                        singleLine = true,
+                        readOnly = readOnly,
+                        enabled = !readOnly,
+                        textStyle = TextStyle(
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 14.sp,
+                            color = if (readOnly) DarkBrown.copy(alpha = 0.6f) else DarkBrown
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                if (trailingIcon != null) {
+                    trailingIcon()
+                }
+            }
         }
     }
 }
