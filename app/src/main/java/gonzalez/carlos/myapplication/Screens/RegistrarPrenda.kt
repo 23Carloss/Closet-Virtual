@@ -1,4 +1,4 @@
-package gonzalez.carlos.myapplication.Screens
+package gonzalez.carlos.myapplication.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
