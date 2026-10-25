@@ -24,6 +24,8 @@ val PlusJakartaSansFontFamily = FontFamily(
     Font(googleFont = plusJakartaSansGoogleFont, fontProvider = fontProvider, weight = FontWeight.Bold)
 )
 
+val PlusJakartaSans = PlusJakartaSansFontFamily
+
 val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,

@@ -2,7 +2,6 @@ package gonzalez.carlos.myapplication.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -42,51 +40,90 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun CalendarScreen(){
-    var selectedDate by remember{ mutableStateOf(LocalDate.now())}
-    var currentMonth by remember { mutableStateOf(YearMonth.now())}
-    Scaffold(bottomBar = {},
-        containerColor =BackgroundCream ) {
-        paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)
-            .fillMaxSize().padding(horizontal = 24.dp)
-            .verticalScroll(rememberScrollState())){
-            Row(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
+fun CalendarScreen(
+    selectedNavTab: Int = 3,
+    onNavTabSelected: (Int) -> Unit = {},
+    onBackClick: () -> Unit = {}
+) {
+    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+    var currentMonth by remember { mutableStateOf(YearMonth.now()) }
+
+    Scaffold(
+        bottomBar = {
+            AppBottomNavigation(
+                selectedTab = selectedNavTab,
+                onTabSelected = onNavTabSelected
+            )
+        },
+        containerColor = BackgroundCream
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically){
-                Surface(shape = RoundedCornerShape(50),
-                    color= Color.Transparent,
-                    onClick = {}
-                ){
-                    Image(painter = painterResource(R.drawable.arrowback),
-                        "Regresar")
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(50),
+                    color = Color.Transparent,
+                    onClick = onBackClick
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.arrowback),
+                        contentDescription = "Regresar"
+                    )
                 }
-                Text("Calendario", fontSize=20.sp, fontWeight = FontWeight.SemiBold,
+
+                Text(
+                    text = "Calendario",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
                     color = MediumBrown
                 )
-                Surface(shape = RoundedCornerShape(50),
+
+                Surface(
+                    shape = RoundedCornerShape(50),
                     border = BorderStroke(1.dp, Color.LightGray),
-                    color= buttonCalendar,
-                    onClick = {}
+                    color = buttonCalendar,
+                    onClick = {
+                        selectedDate = LocalDate.now()
+                        currentMonth = YearMonth.now()
+                    }
                 ) {
-                    Text("Hoy", modifier = Modifier.padding(horizontal = 12.dp,
-                        vertical = 6.dp), fontSize = 12.sp)
+                    Text(
+                        text = "Hoy",
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        fontSize = 12.sp
+                    )
                 }
             }
+
             CalendarComponent(
-                onChangeMonth = {month -> currentMonth = month},
-                onDayClick = {date -> selectedDate = date}
+                onChangeMonth = { month -> currentMonth = month },
+                onDayClick = { date -> selectedDate = date }
             )
-            Spacer(modifier= Modifier.height(20.dp))
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                val formatDate= DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM",
-                    java.util.Locale("es","ES"))
-                Text(text= selectedDate.format(formatDate),
-                    color = TextDark,
-                    fontSize = 14.sp)
-                // Para dar un ejemplo que tiene un outfit
-                Text("1 Outfit", fontSize = 14.sp, color = MediumBrown)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                val formatDate = DateTimeFormatter.ofPattern(
+                    "EEEE, d 'de' MMMM",
+                    java.util.Locale("es", "ES")
+                )
+                Text(text = selectedDate.format(formatDate), color = TextDark, fontSize = 14.sp)
+
+                Text(text = "1 Outfit", fontSize = 14.sp, color = MediumBrown)
             }
             Text("Outfit del Día", fontSize = 22.sp, fontWeight = FontWeight.Bold,
                 color = MediumBrown, modifier = Modifier.padding(vertical = 16.dp))
@@ -99,6 +136,6 @@ fun CalendarScreen(){
 
 @Preview
 @Composable
-fun PreviewCalendarScreen(){
+fun PreviewCalendarScreen() {
     CalendarScreen()
 }
