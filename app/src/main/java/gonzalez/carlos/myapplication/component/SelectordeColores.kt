@@ -48,9 +48,9 @@ fun SelectorColores() {
                 val isSelected = colorSeleccionado == color
 
                 val backgroundColor = if (isSelected) colorResource(id = R.color.ButtonContinueBackground)
-                else colorResource(id = R.color.fotoPrendaBackground)
+                else colorResource(id = R.color.AddImageBackground)
                 val contentColor = if (isSelected) colorResource(id = R.color.ButtonContinueBackground)
-                else  colorResource(id = R.color.fotoPrendaBackground)
+                else  colorResource(id = R.color.AddImageBackground)
                 val borderColor = if (isSelected) colorResource(id = R.color.ButtonContinueBackground)
                 else  colorResource(id = R.color.Stroke)
 

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.component.BotonesNavegacion
+import gonzalez.carlos.myapplication.component.BarraAccesoRapido
 import gonzalez.carlos.myapplication.component.CampoPrenda
 import gonzalez.carlos.myapplication.component.FotoPrenda
 import gonzalez.carlos.myapplication.component.SelectorColores
@@ -31,9 +32,13 @@ fun RegistrarPrendaScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.modoClaroBackground))
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState())
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Registrar Prenda",
@@ -81,12 +86,13 @@ fun RegistrarPrendaScreen() {
         SelectorColores()
         Spacer(modifier = Modifier.height(16.dp))
         //aqui me quedee
-        Spacer(modifier = Modifier.height(45.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         BotonesNavegacion()
         Spacer(modifier = Modifier.height(16.dp))
 
 
-
+        }
+        BarraAccesoRapido()
     }
 }
 
