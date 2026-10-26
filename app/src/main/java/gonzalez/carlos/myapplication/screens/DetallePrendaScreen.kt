@@ -190,7 +190,7 @@ fun DetallePrendaScreen(
                                 text = "veces",
                                 fontFamily = PlusJakartaSansFontFamily,
                                 fontWeight = FontWeight.Medium,
-                                fontSize = 12.sp,
+                                fontSize = 20.sp,
                                 color = DarkBrown,
                                 modifier = Modifier.align(Alignment.CenterHorizontally)
                             )
@@ -228,7 +228,7 @@ fun DetallePrendaScreen(
                                 text = "veces por mes",
                                 fontFamily = PlusJakartaSansFontFamily,
                                 fontWeight = FontWeight.Medium,
-                                fontSize = 12.sp,
+                                fontSize = 20.sp,
                                 color = DarkBrown,
                                 modifier = Modifier.align(Alignment.CenterHorizontally)
                             )

@@ -1,13 +1,12 @@
 package gonzalez.carlos.myapplication.data
 
-import androidx.annotation.DrawableRes
 import gonzalez.carlos.myapplication.R
 
 data class UserProfile(
     val name: String,
     val email: String,
     val phone: String,
-    @get:DrawableRes val pfp: Int = R.drawable.profilepfp,
+    val pfp: Int = R.drawable.profilepfp,
     val isBiometricsEnabled: Boolean = true
 )
 
