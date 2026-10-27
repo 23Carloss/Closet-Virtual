@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -25,7 +25,7 @@ import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 @Composable
 fun CampoPrenda(etiqueta: String, ejemplo: String){
 
-    var texto by remember { mutableStateOf("") }
+    var texto by rememberSaveable { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxWidth()
         .background(colorResource(id = R.color.modoClaroBackground))

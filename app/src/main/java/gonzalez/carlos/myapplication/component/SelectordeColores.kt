@@ -14,7 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
  import androidx.compose.ui.res.colorResource
@@ -27,7 +27,7 @@ import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
 fun SelectorColores() {
-    var colorSeleccionado by remember { mutableStateOf("Camel") }
+    var colorSeleccionado by rememberSaveable { mutableStateOf("Camel") }
     val colores = listOf("Camel", "Negro", "Blanco", "+ Otro")
 
     Column(modifier = Modifier.fillMaxWidth()

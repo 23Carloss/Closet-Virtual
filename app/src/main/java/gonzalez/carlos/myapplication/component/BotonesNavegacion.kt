@@ -17,18 +17,23 @@ import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
-fun BotonesNavegacion(){
+fun BotonesNavegacion(
+    onAtrasClick: () -> Unit = {},
+    onContinuarClick: () -> Unit = {},
+    textoAtras: String = "Atras",
+    textoContinuar: String = "Continuar ->"
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         OutlinedButton(
-            onClick = {},//este mandara a la pagina principal
+            onClick = onAtrasClick,
             modifier = Modifier.weight(1f),
             colors =  ButtonDefaults.
             outlinedButtonColors(containerColor = colorResource(id = R.color.AddImageBackground))
         ) {
-            Text("Atras",
+            Text(textoAtras,
                 color = colorResource(id = R.color.fontColor),
                 fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold
@@ -36,12 +41,12 @@ fun BotonesNavegacion(){
 
         }
         Button(
-            onClick = {},   //aqui sera para continuar al 2do paso - pantalla)
+            onClick = onContinuarClick,
             modifier = Modifier.weight(2f),
             colors =  ButtonDefaults.
                         buttonColors(containerColor = colorResource(id = R.color.ButtonContinueBackground))
         ){
-            Text("Continuar ->",
+            Text(textoContinuar,
                 fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold
             )
