@@ -13,9 +13,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,20 +25,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
-import gonzalez.carlos.myapplication.component.BarraAccesoRapido
 import gonzalez.carlos.myapplication.component.BotonesNavegacion
 import gonzalez.carlos.myapplication.component.CampoTagsPrenda
 import gonzalez.carlos.myapplication.component.GrupoOpcionesPrenda
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
+//NavigateToX
 @Composable
-fun RegistrarPrendaPaso2() {
-    var estampada by remember { mutableStateOf(false) }
-    var temporada by remember { mutableStateOf("Otoño") }
-    var formalidad by remember { mutableStateOf("Casual") }
-    var textoTag by remember { mutableStateOf("") }
-    val tags = remember { mutableStateListOf("Favorito", "Básico", "Neutro") }
-    val tagsSeleccionados = remember { mutableStateListOf("Favorito") }
+fun RegistrarPrendaPaso2(
+    onAtrasClick: () -> Unit = {},
+    onContinuarClick: () -> Unit = {}
+) {
+    var estampada by rememberSaveable { mutableStateOf(false) }
+    var temporada by rememberSaveable { mutableStateOf("Otoño") }
+    var formalidad by rememberSaveable { mutableStateOf("Casual") }
+    var textoTag by rememberSaveable { mutableStateOf("") }
+    var tags by rememberSaveable { mutableStateOf(listOf("Favorito", "Básico", "Neutro")) }
+    var tagSeleccionado by rememberSaveable { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -94,19 +96,18 @@ fun RegistrarPrendaPaso2() {
             CampoTagsPrenda(
                 texto = textoTag,
                 tags = tags,
-                tagsSeleccionados = tagsSeleccionados,
+                tagsSeleccionados = listOfNotNull(tagSeleccionado),
                 onTextoCambiado = { textoTag = it },
                 onAgregarTag = {
                     val tag = textoTag.trim()
                     if (tag.isNotEmpty() && tag !in tags) {
-                        tags.add(tag)
-                        tagsSeleccionados.add(tag)
+                        tags = tags + tag
+                        tagSeleccionado = tag
                         textoTag = ""
                     }
                 },
                 onTagSeleccionado = { tag ->
-                    if (tag in tagsSeleccionados) tagsSeleccionados.remove(tag)
-                    else tagsSeleccionados.add(tag)
+                    tagSeleccionado = if (tagSeleccionado == tag) null else tag
                 }
             )
             Spacer(modifier = Modifier.height(14.dp))
@@ -132,10 +133,13 @@ fun RegistrarPrendaPaso2() {
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
         ) {
-            BotonesNavegacion()
+            BotonesNavegacion(
+                onAtrasClick = onAtrasClick,
+                onContinuarClick = onContinuarClick
+            )
         }
         Spacer(modifier = Modifier.height(8.dp))
-        BarraAccesoRapido()
+        AppBottomNavigation()
     }
 }
 

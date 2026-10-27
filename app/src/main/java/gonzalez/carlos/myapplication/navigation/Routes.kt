@@ -16,6 +16,12 @@ data class DetallePrendaRoute(val itemId: String)
 
 @Serializable
 object RegistrarPrendaRoute
+@Serializable
+object RegistrarPrendaRoute2
+
+@Serializable
+object RegistrarPrendaRoute3
+
 
 @Serializable
 object CalendarioRoute

@@ -20,14 +20,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.component.BotonesNavegacion
-import gonzalez.carlos.myapplication.component.BarraAccesoRapido
 import gonzalez.carlos.myapplication.component.CampoPrenda
 import gonzalez.carlos.myapplication.component.FotoPrenda
 import gonzalez.carlos.myapplication.component.SelectorColores
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
-fun RegistrarPrendaScreen() {
+fun RegistrarPrendaScreen(
+    onAtrasClick: () -> Unit = {},
+    onContinuarClick: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -87,12 +89,15 @@ fun RegistrarPrendaScreen() {
         Spacer(modifier = Modifier.height(16.dp))
         //aqui me quedee
         Spacer(modifier = Modifier.height(20.dp))
-        BotonesNavegacion()
+        BotonesNavegacion(
+            onAtrasClick = onAtrasClick,
+            onContinuarClick = onContinuarClick
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
 
         }
-        BarraAccesoRapido()
+        AppBottomNavigation()
     }
 }
 

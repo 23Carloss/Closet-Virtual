@@ -95,8 +95,31 @@ fun AppNavigation(
         }
 
         composable<RegistrarPrendaRoute> {
-            RegistrarPrendaScreen()
+            RegistrarPrendaScreen(
+                onAtrasClick = { navController.popBackStack() },
+                onContinuarClick = { navController.navigate(RegistrarPrendaRoute2) }
+            )
         }
+
+        composable<RegistrarPrendaRoute2> {
+            RegistrarPrendaPaso2(
+                onAtrasClick = { navController.popBackStack() },
+                onContinuarClick = { navController.navigate(RegistrarPrendaRoute3) }
+            )
+        }
+
+        composable<RegistrarPrendaRoute3> {
+            RegistrarPrendaPaso3(
+                onAtrasClick = { navController.popBackStack() },
+                onContinuarClick = {
+                    navController.navigate(ArmarioRoute) {
+                        popUpTo<ArmarioRoute> { inclusive = false }
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+
 
         composable<CalendarioRoute> {
             CalendarScreen(
