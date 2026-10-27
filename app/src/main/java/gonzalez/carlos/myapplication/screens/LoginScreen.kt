@@ -1,8 +1,6 @@
 package gonzalez.carlos.myapplication.screens
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -16,32 +14,23 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.*
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
-fun LoginScreen(
-    modifier: Modifier = Modifier,
-    onNavigateToRegister: () -> Unit = {},
-    onForgotPassword: () -> Unit = {},
-    onLoginSuccess: () -> Unit = {},
-    onBiometricAuth: () -> Unit = {}
-) {
+fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit = {}, onForgotPassword: () -> Unit = {},
+    onLoginSuccess: () -> Unit = {}, onBiometricAuth: () -> Unit = {}) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -92,14 +81,12 @@ fun LoginScreen(
         ) {
             Spacer(modifier = Modifier.height(10.dp))
 
+            // TEMPLATE DEL ICONO
             Image(
                 painter = painterResource(id = R.drawable.cat_placeholder),
                 contentDescription = "Mascota de Bienvenida",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(130.dp)
-                    .clip(RoundedCornerShape(16.dp))
-            )
+                modifier = Modifier.size(130.dp).clip(RoundedCornerShape(16.dp)))
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -167,9 +154,7 @@ fun LoginScreen(
 
             Button(
                 onClick = onBiometricAuth,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
+                modifier = Modifier.fillMaxWidth().height(50.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MediumBrown,
@@ -267,9 +252,7 @@ fun CustomTextField(
         )
         Spacer(modifier = Modifier.height(6.dp))
         Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp)
+            modifier = Modifier.fillMaxWidth().height(48.dp)
                 .then(
                     if (onClick != null) {
                         Modifier.clickable { onClick() }
