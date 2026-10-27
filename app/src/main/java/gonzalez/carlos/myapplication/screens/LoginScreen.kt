@@ -1,47 +1,105 @@
 package gonzalez.carlos.myapplication.screens
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.*
-import androidx.compose.foundation.text.*
-import androidx.compose.material.icons.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit = {}, onForgotPassword: () -> Unit = {},
-    onLoginSuccess: () -> Unit = {}, onBiometricAuth: () -> Unit = {}) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToRegister: () -> Unit = {},
+    onForgotPassword: () -> Unit = {},
+    onLoginSuccess: () -> Unit = {},
+    onBiometricAuth: () -> Unit = {}
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    Box(modifier = modifier.fillMaxSize().background(BackgroundCream), contentAlignment = Alignment.TopCenter) {
-        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .padding(horizontal = 24.dp, vertical = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    var emailError by remember { mutableStateOf<String?>(null) }
+    var passwordError by remember { mutableStateOf<String?>(null) }
+
+    fun validateAndLogin() {
+        var isValid = true
+        val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+
+        if (email.isBlank()) {
+            emailError = "El correo electrónico es requerido"
+            isValid = false
+        } else if (!emailRegex.matches(email.trim())) {
+            emailError = "Ingresa un correo electrónico válido"
+            isValid = false
+        } else {
+            emailError = null
+        }
+
+        if (password.isBlank()) {
+            passwordError = "La contraseña es requerida"
+            isValid = false
+        } else if (password.length < 6) {
+            passwordError = "La contraseña debe tener al menos 6 caracteres"
+            isValid = false
+        } else {
+            passwordError = null
+        }
+
+        if (isValid) {
+            onLoginSuccess()
+        }
+    }
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(BackgroundCream),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 24.dp, vertical = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Spacer(modifier = Modifier.height(10.dp))
 
-            // TEMPLATE DEL ICONO
             Image(
                 painter = painterResource(id = R.drawable.cat_placeholder),
                 contentDescription = "Mascota de Bienvenida",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(130.dp).clip(RoundedCornerShape(16.dp)))
+                modifier = Modifier
+                    .size(130.dp)
+                    .clip(RoundedCornerShape(16.dp))
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -59,8 +117,12 @@ fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit 
             CustomTextField(
                 label = "Correo Electrónico",
                 value = email,
-                onValueChange = { email = it },
+                onValueChange = {
+                    email = it
+                    if (emailError != null) emailError = null
+                },
                 keyboardType = KeyboardType.Email,
+                errorMessage = emailError
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -68,19 +130,28 @@ fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit 
             CustomTextField(
                 label = "Contraseña",
                 value = password,
-                onValueChange = { password = it },
+                onValueChange = {
+                    password = it
+                    if (passwordError != null) passwordError = null
+                },
                 isPassword = true,
                 showPasswordToggle = false,
                 keyboardType = KeyboardType.Password,
+                errorMessage = passwordError
             )
 
             Spacer(modifier = Modifier.height(36.dp))
 
-            Button(onClick = onLoginSuccess, modifier = Modifier.fillMaxWidth().height(50.dp),
+            Button(
+                onClick = { validateAndLogin() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = DarkBrown,
-                    contentColor = Color.White),
+                    contentColor = Color.White
+                ),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
                 Text(
@@ -96,7 +167,9 @@ fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit 
 
             Button(
                 onClick = onBiometricAuth,
-                modifier = Modifier.fillMaxWidth().height(50.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MediumBrown,
@@ -168,10 +241,21 @@ fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit 
 }
 
 @Composable
-fun CustomTextField(label: String, value: String, onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier, placeholder: String = "", isPassword: Boolean = false,
-    showPasswordToggle: Boolean = false, keyboardType: KeyboardType = KeyboardType.Text, readOnly: Boolean = false, onClick: (() -> Unit)? = null) {
+fun CustomTextField(
+    label: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    placeholder: String = "",
+    isPassword: Boolean = false,
+    showPasswordToggle: Boolean = false,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    readOnly: Boolean = false,
+    errorMessage: String? = null,
+    onClick: (() -> Unit)? = null
+) {
     var passwordVisible by remember { mutableStateOf(!isPassword) }
+    val isError = !errorMessage.isNullOrEmpty()
 
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
@@ -183,7 +267,9 @@ fun CustomTextField(label: String, value: String, onValueChange: (String) -> Uni
         )
         Spacer(modifier = Modifier.height(6.dp))
         Surface(
-            modifier = Modifier.fillMaxWidth().height(48.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp)
                 .then(
                     if (onClick != null) {
                         Modifier.clickable { onClick() }
@@ -191,22 +277,35 @@ fun CustomTextField(label: String, value: String, onValueChange: (String) -> Uni
                 ),
             shape = RoundedCornerShape(12.dp),
             color = FieldBackground,
-            border = BorderStroke(1.5.dp, LightBrownBorder))
-        {
-            Row(modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp),
-                verticalAlignment = Alignment.CenterVertically) {
-
-                Box(modifier = Modifier.weight(1f).fillMaxHeight(),
-                    contentAlignment = Alignment.CenterStart) {
+            border = BorderStroke(1.5.dp, if (isError) Color(0xFFD32F2F) else LightBrownBorder)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
                     if (value.isEmpty() && placeholder.isNotEmpty()) {
                         Text(
                             text = placeholder,
                             fontFamily = PlusJakartaSansFontFamily,
                             fontSize = 14.sp,
-                            color = TextPlaceholder)
+                            color = TextPlaceholder
+                        )
                     }
-                    BasicTextField(value = value, onValueChange = onValueChange, modifier = Modifier.fillMaxWidth(),
-                        singleLine = true, readOnly = readOnly, enabled = !readOnly && onClick == null,
+                    BasicTextField(
+                        value = value,
+                        onValueChange = onValueChange,
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        readOnly = readOnly,
+                        enabled = !readOnly && onClick == null,
                         textStyle = TextStyle(
                             fontFamily = PlusJakartaSansFontFamily,
                             fontWeight = FontWeight.Medium,
@@ -214,7 +313,8 @@ fun CustomTextField(label: String, value: String, onValueChange: (String) -> Uni
                             color = DarkBrown
                         ),
                         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-                        visualTransformation = if (isPassword && !passwordVisible) PasswordVisualTransformation() else VisualTransformation.None)
+                        visualTransformation = if (isPassword && !passwordVisible) PasswordVisualTransformation() else VisualTransformation.None
+                    )
                 }
 
                 if (isPassword && showPasswordToggle) {
@@ -231,6 +331,17 @@ fun CustomTextField(label: String, value: String, onValueChange: (String) -> Uni
                     }
                 }
             }
+        }
+
+        if (!errorMessage.isNullOrEmpty()) {
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = errorMessage,
+                fontFamily = PlusJakartaSansFontFamily,
+                fontWeight = FontWeight.Medium,
+                fontSize = 12.sp,
+                color = Color(0xFFD32F2F)
+            )
         }
     }
 }

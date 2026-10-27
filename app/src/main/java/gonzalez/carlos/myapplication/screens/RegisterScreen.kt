@@ -3,7 +3,9 @@ package gonzalez.carlos.myapplication.screens
 import android.app.DatePickerDialog
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,6 +24,7 @@ import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.ui.theme.*
 import java.util.Calendar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
@@ -34,6 +37,12 @@ fun RegisterScreen(
     var gender by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+
+    var nameError by remember { mutableStateOf<String?>(null) }
+    var emailError by remember { mutableStateOf<String?>(null) }
+    var genderError by remember { mutableStateOf<String?>(null) }
+    var passwordError by remember { mutableStateOf<String?>(null) }
+    var confirmPasswordError by remember { mutableStateOf<String?>(null) }
 
     var expandedGenderMenu by remember { mutableStateOf(false) }
     val genderOptions = listOf("Masculino", "Femenino", "Otro", "Prefiero no decir")
@@ -50,7 +59,66 @@ fun RegisterScreen(
         calendar.get(Calendar.YEAR),
         calendar.get(Calendar.MONTH),
         calendar.get(Calendar.DAY_OF_MONTH)
-    )
+    ).apply {
+        // Bloquea fechas futuras para evitar edades o números negativos
+        datePicker.maxDate = System.currentTimeMillis()
+    }
+
+    fun validateAndRegister() {
+        var isValid = true
+        val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+
+        if (name.isBlank()) {
+            nameError = "El nombre es requerido"
+            isValid = false
+        } else if (name.any { it.isDigit() }) {
+            nameError = "El nombre no puede contener números"
+            isValid = false
+        } else {
+            nameError = null
+        }
+
+        if (email.isBlank()) {
+            emailError = "El correo electrónico es requerido"
+            isValid = false
+        } else if (!emailRegex.matches(email.trim())) {
+            emailError = "Ingresa un correo electrónico válido"
+            isValid = false
+        } else {
+            emailError = null
+        }
+
+        if (gender.isBlank()) {
+            genderError = "Por favor selecciona un género"
+            isValid = false
+        } else {
+            genderError = null
+        }
+
+        if (password.isBlank()) {
+            passwordError = "La contraseña es requerida"
+            isValid = false
+        } else if (password.length < 6) {
+            passwordError = "La contraseña debe tener al menos 6 caracteres"
+            isValid = false
+        } else {
+            passwordError = null
+        }
+
+        if (confirmPassword.isBlank()) {
+            confirmPasswordError = "Por favor confirma tu contraseña"
+            isValid = false
+        } else if (confirmPassword != password) {
+            confirmPasswordError = "Las contraseñas no coinciden"
+            isValid = false
+        } else {
+            confirmPasswordError = null
+        }
+
+        if (isValid) {
+            onRegisterSuccess()
+        }
+    }
 
     Box(
         modifier = modifier.fillMaxSize().background(BackgroundCream),
@@ -65,12 +133,12 @@ fun RegisterScreen(
         ) {
             Spacer(modifier = Modifier.height(10.dp))
 
-            //PLACEHOLDER DEL ICONO
             Image(
                 painter = painterResource(id = R.drawable.cat_placeholder),
                 contentDescription = "Mascota de Registro",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(130.dp).clip(RoundedCornerShape(16.dp)))
+                modifier = Modifier.size(130.dp).clip(RoundedCornerShape(16.dp))
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -88,7 +156,13 @@ fun RegisterScreen(
             CustomTextField(
                 label = "Nombre",
                 value = name,
-                onValueChange = { name = it }
+                onValueChange = { input ->
+                    if (!input.any { char -> char.isDigit() }) {
+                        name = input
+                        if (nameError != null) nameError = null
+                    }
+                },
+                errorMessage = nameError
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -96,8 +170,12 @@ fun RegisterScreen(
             CustomTextField(
                 label = "Correo electrónico",
                 value = email,
-                onValueChange = { email = it },
-                keyboardType = KeyboardType.Email
+                onValueChange = {
+                    email = it
+                    if (emailError != null) emailError = null
+                },
+                keyboardType = KeyboardType.Email,
+                errorMessage = emailError
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -107,40 +185,91 @@ fun RegisterScreen(
                 value = birthDate,
                 onValueChange = { birthDate = it },
                 readOnly = true,
-                onClick = { datePickerDialog.show() },
+                onClick = { datePickerDialog.show() }
             )
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            Box(modifier = Modifier.fillMaxWidth()) {
-                CustomTextField(
-                    label = "Género",
-                    value = gender,
-                    onValueChange = { gender = it },
-                    readOnly = true,
-                    onClick = { expandedGenderMenu = true },
+            // Campo ComboBox para Género
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Género",
+                    fontFamily = PlusJakartaSansFontFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 14.sp,
+                    color = DarkBrown
                 )
+                Spacer(modifier = Modifier.height(6.dp))
 
-                DropdownMenu(
+                ExposedDropdownMenuBox(
                     expanded = expandedGenderMenu,
-                    onDismissRequest = { expandedGenderMenu = false },
-                    modifier = Modifier.background(BackgroundCream)
+                    onExpandedChange = { expandedGenderMenu = !expandedGenderMenu },
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    genderOptions.forEach { option ->
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    text = option,
-                                    fontFamily = PlusJakartaSansFontFamily,
-                                    color = DarkBrown
-                                )
-                            },
-                            onClick = {
-                                gender = option
-                                expandedGenderMenu = false
-                            }
-                        )
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .menuAnchor(MenuAnchorType.PrimaryNotEditable, enabled = true),
+                        shape = RoundedCornerShape(12.dp),
+                        color = FieldBackground,
+                        border = BorderStroke(1.5.dp, if (!genderError.isNullOrEmpty()) Color(0xFFD32F2F) else LightBrownBorder)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = if (gender.isEmpty()) "Seleccionar género" else gender,
+                                fontFamily = PlusJakartaSansFontFamily,
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 14.sp,
+                                color = if (gender.isEmpty()) TextPlaceholder else DarkBrown
+                            )
+
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedGenderMenu)
+                        }
                     }
+
+                    ExposedDropdownMenu(
+                        expanded = expandedGenderMenu,
+                        onDismissRequest = { expandedGenderMenu = false },
+                        modifier = Modifier.background(BackgroundCream)
+                    ) {
+                        genderOptions.forEach { option ->
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = option,
+                                        fontFamily = PlusJakartaSansFontFamily,
+                                        fontWeight = FontWeight.Medium,
+                                        fontSize = 14.sp,
+                                        color = DarkBrown
+                                    )
+                                },
+                                onClick = {
+                                    gender = option
+                                    expandedGenderMenu = false
+                                    if (genderError != null) genderError = null
+                                },
+                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                            )
+                        }
+                    }
+                }
+
+                if (!genderError.isNullOrEmpty()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = genderError!!,
+                        fontFamily = PlusJakartaSansFontFamily,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp,
+                        color = Color(0xFFD32F2F)
+                    )
                 }
             }
 
@@ -149,10 +278,14 @@ fun RegisterScreen(
             CustomTextField(
                 label = "Contraseña",
                 value = password,
-                onValueChange = { password = it },
+                onValueChange = {
+                    password = it
+                    if (passwordError != null) passwordError = null
+                },
                 isPassword = true,
                 showPasswordToggle = true,
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                errorMessage = passwordError
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -160,16 +293,23 @@ fun RegisterScreen(
             CustomTextField(
                 label = "Confirmar Contraseña",
                 value = confirmPassword,
-                onValueChange = { confirmPassword = it },
+                onValueChange = {
+                    confirmPassword = it
+                    if (confirmPasswordError != null) confirmPasswordError = null
+                },
                 isPassword = true,
                 showPasswordToggle = true,
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                errorMessage = confirmPasswordError
             )
 
             Spacer(modifier = Modifier.height(28.dp))
 
-            Button(onClick = onRegisterSuccess,
-                modifier = Modifier.fillMaxWidth().height(50.dp),
+            Button(
+                onClick = { validateAndRegister() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = DarkBrown,

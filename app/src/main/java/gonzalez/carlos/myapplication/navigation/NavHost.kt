@@ -49,7 +49,7 @@ fun AppNavigation(
                     }
                 },
                 onBiometricAuth = {
-                    navController.navigate(ArmarioRoute) {
+                    navController.navigate(InicioRoute) {
                         popUpTo<LoginRoute> { inclusive = true }
                     }
                 }
@@ -62,7 +62,7 @@ fun AppNavigation(
                     navController.popBackStack()
                 },
                 onRegisterSuccess = {
-                    navController.navigate(ArmarioRoute) {
+                    navController.navigate(InicioRoute) {
                         popUpTo<LoginRoute> { inclusive = true }
                     }
                 }
