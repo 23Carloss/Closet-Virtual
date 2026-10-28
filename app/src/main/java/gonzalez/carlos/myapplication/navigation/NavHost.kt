@@ -22,8 +22,7 @@ fun AppNavigation(
             0 -> ArmarioRoute
             1 -> OutfitsRoute
             2 -> InicioRoute
-            3 -> CalendarioRoute
-            4 -> ProfileRoute
+            3 -> ProfileRoute
             else -> ArmarioRoute
         }
         navController.navigate(targetRoute) {
@@ -134,15 +133,6 @@ fun AppNavigation(
             )
         }
 
-
-        composable<CalendarioRoute> {
-            CalendarScreen(
-                selectedNavTab = 3,
-                onNavTabSelected = navigateToTab,
-                onBackClick = { navController.popBackStack() }
-            )
-        }
-
         composable<ProfileRoute> {
             ProfileScreen(
                 onBackClick = { navController.popBackStack() },
@@ -188,6 +178,16 @@ fun AppNavigation(
             CrearOutfitScreen(
                 onBackClick = { navController.popBackStack() },
                 onSaveSuccess = { navController.popBackStack() },
+                onSelectFromClosetClick = { navController.navigate(SeleccionarPrendaRoute) },
+                selectedNavTab = 1,
+                onNavTabSelected = navigateToTab
+            )
+        }
+
+        composable<SeleccionarPrendaRoute> {
+            SeleccionarPrenda(
+                onBackClick = { navController.popBackStack() },
+                onItemClick = { navController.popBackStack() },
                 selectedNavTab = 1,
                 onNavTabSelected = navigateToTab
             )

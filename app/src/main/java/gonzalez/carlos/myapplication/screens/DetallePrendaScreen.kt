@@ -330,7 +330,6 @@ fun AppBottomNavigation(
                 Triple("Armario", Icons.Outlined.Checkroom, Icons.Filled.Checkroom),
                 Triple("Outfits", Icons.Outlined.AutoAwesome, Icons.Filled.AutoAwesome),
                 Triple("Inicio", Icons.Outlined.Home, Icons.Filled.Home),
-                Triple("Calendario", Icons.Outlined.CalendarToday, Icons.Filled.CalendarToday),
                 Triple("Ajustes", Icons.Outlined.Settings, Icons.Filled.Settings)
             )
 

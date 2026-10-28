@@ -21,57 +21,33 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.Checkroom
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.data.ClothingItem
 import gonzalez.carlos.myapplication.data.sampleClothingItems
-import gonzalez.carlos.myapplication.data.sampleUserProfile
-import gonzalez.carlos.myapplication.ui.theme.BackgroundCream
-import gonzalez.carlos.myapplication.ui.theme.DarkBrown
-import gonzalez.carlos.myapplication.ui.theme.FieldBackground
-import gonzalez.carlos.myapplication.ui.theme.IconColor
-import gonzalez.carlos.myapplication.ui.theme.LightBrownBorder
-import gonzalez.carlos.myapplication.ui.theme.MediumBrown
-import gonzalez.carlos.myapplication.ui.theme.MyApplicationTheme
-import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
-import gonzalez.carlos.myapplication.ui.theme.TextPlaceholder
-import kotlin.text.equals
-import kotlin.text.uppercase
+import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
 fun SeleccionarPrenda(
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
     onItemClick: (ClothingItem) -> Unit = {},
-    selectedNavTab: Int = 0,
+    selectedNavTab: Int = 1,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -95,42 +71,32 @@ fun SeleccionarPrenda(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 14.dp),
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFF8B0000)),
-                    contentAlignment = Alignment.Center
+                IconButton(
+                    onClick = onBackClick,
+                    modifier = Modifier.size(36.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.profilepfp),
-                        contentDescription = "Avatar de Usuario",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Regresar",
+                        tint = DarkBrown,
+                        modifier = Modifier.size(24.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = "Seleccionar Prenda",
+                    fontFamily = PlusJakartaSansFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = DarkBrown,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.weight(1f)
+                )
 
-                Column {
-                    Text(
-                        text = "CloudCloset",
-                        fontFamily = PlusJakartaSansFontFamily,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 13.sp,
-                        color = DarkBrown
-                    )
-                    Text(
-                        text = "Bienvenido, ${sampleUserProfile.name}!",
-                        fontFamily = PlusJakartaSansFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = DarkBrown
-                    )
-                }
+                Spacer(modifier = Modifier.size(36.dp))
             }
 
             Row(
@@ -292,7 +258,7 @@ fun SeleccionarPrenda(
 
 @Preview(showBackground = true, widthDp = 360, heightDp = 780)
 @Composable
-fun SeleccionarPrenda() {
+fun SeleccionarPrendaPreview() {
     MyApplicationTheme {
         SeleccionarPrenda()
     }

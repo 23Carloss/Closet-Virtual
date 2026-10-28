@@ -25,10 +25,6 @@ object RegistrarPrendaRoute2
 @Serializable
 object RegistrarPrendaRoute3
 
-
-@Serializable
-object CalendarioRoute
-
 @Serializable
 object ProfileRoute
 
@@ -37,6 +33,9 @@ object OutfitsRoute
 
 @Serializable
 object CrearOutfitRoute
+
+@Serializable
+object SeleccionarPrendaRoute
 
 @Serializable
 object InicioRoute

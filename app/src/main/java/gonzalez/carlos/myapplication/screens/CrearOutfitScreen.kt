@@ -35,6 +35,7 @@ fun CrearOutfitScreen(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     onSaveSuccess: () -> Unit = {},
+    onSelectFromClosetClick: () -> Unit = {},
     selectedNavTab: Int = 1,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
@@ -253,7 +254,7 @@ fun CrearOutfitScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(46.dp)
-                            .clickable { },
+                            .clickable { onSelectFromClosetClick() },
                         shape = RoundedCornerShape(12.dp),
                         color = FieldBackground,
                         border = BorderStroke(1.5.dp, LightBrownBorder)
