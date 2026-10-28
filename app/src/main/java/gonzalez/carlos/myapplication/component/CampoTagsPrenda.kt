@@ -93,7 +93,7 @@ fun CampoTagsPrenda(
             }
         }
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         FilaOpcionesPrenda(
             opciones = tags,
             seleccionadas = tagsSeleccionados,

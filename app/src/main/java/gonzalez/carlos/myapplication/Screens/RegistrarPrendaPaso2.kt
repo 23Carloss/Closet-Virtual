@@ -28,6 +28,7 @@ import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.component.BotonesNavegacion
 import gonzalez.carlos.myapplication.component.CampoTagsPrenda
 import gonzalez.carlos.myapplication.component.GrupoOpcionesPrenda
+import gonzalez.carlos.myapplication.component.IndicadorProgresoPrenda
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 //NavigateToX
@@ -48,6 +49,7 @@ fun RegistrarPrendaPaso2(
             .fillMaxSize()
             .background(colorResource(id = R.color.modoClaroBackground))
     ) {
+        IndicadorProgresoPrenda(pasoActual = 2)
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -58,7 +60,7 @@ fun RegistrarPrendaPaso2(
             Text(
                 text = "Registrar Prenda",
                 color = colorResource(id = R.color.fontColor),
-                fontSize = 21.sp,
+                fontSize = 25.sp,
                 fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -68,7 +70,7 @@ fun RegistrarPrendaPaso2(
             Text(
                 text = "Dale sus detalles",
                 color = colorResource(id = R.color.fontColor),
-                fontSize = 24.sp,
+                fontSize = 25.sp,
                 fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.fillMaxWidth()
@@ -83,7 +85,7 @@ fun RegistrarPrendaPaso2(
                 fontWeight = FontWeight.Normal,
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(25.dp))
 
             GrupoOpcionesPrenda(
                 titulo = "¿Es estampada?",
@@ -91,7 +93,7 @@ fun RegistrarPrendaPaso2(
                 seleccionadas = listOf(if (estampada) "Sí" else "No"),
                 onOpcionSeleccionada = { estampada = it == "Sí" }
             )
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             CampoTagsPrenda(
                 texto = textoTag,

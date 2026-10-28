@@ -22,6 +22,7 @@ import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.component.BotonesNavegacion
 import gonzalez.carlos.myapplication.component.CampoPrenda
 import gonzalez.carlos.myapplication.component.FotoPrenda
+import gonzalez.carlos.myapplication.component.IndicadorProgresoPrenda
 import gonzalez.carlos.myapplication.component.SelectorColores
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
@@ -35,26 +36,28 @@ fun RegistrarPrendaScreen(
             .fillMaxSize()
             .background(colorResource(id = R.color.modoClaroBackground))
     ) {
+        IndicadorProgresoPrenda(pasoActual = 1)
         Column(
             modifier = Modifier
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
-                .padding(20.dp),
+                .padding(15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Registrar Prenda",
             color = colorResource(id = R.color.fontColor),
-            fontSize = 30.sp,
+            fontSize = 25.sp,
             fontFamily = PlusJakartaSansFontFamily,
             fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(5.dp))
 
         Text(
             text = "Empecemos por lo basico",
             color = colorResource(id = R.color.fontColor),
-            fontSize = 35.sp,
+            fontSize = 25.sp,
             fontFamily = PlusJakartaSansFontFamily,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -63,16 +66,13 @@ fun RegistrarPrendaScreen(
 
         Text( text = "Añade una foto y cuentanos sobre la prenda",
             color = colorResource(id = R.color.fontColor),
-            fontSize = 17.sp,
+            fontSize = 15.sp,
             fontFamily = PlusJakartaSansFontFamily,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
-        // llamar a una funcion para crear el campox
-        // de la foto reducir codigo
         FotoPrenda()
-        //me quede en tratar de crear la funcion del campo para la foto
         Spacer(modifier = Modifier.height(16.dp))
         CampoPrenda(
             etiqueta = "Nombre de la prenda",
@@ -84,11 +84,9 @@ fun RegistrarPrendaScreen(
             etiqueta = "Categoria",
             ejemplo = "Selecciona una categoría"
         )
-        // me falta como hacer lo de los colores
         SelectorColores()
-        Spacer(modifier = Modifier.height(16.dp))
-        //aqui me quedee
-        Spacer(modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.height(35.dp))
         BotonesNavegacion(
             onAtrasClick = onAtrasClick,
             onContinuarClick = onContinuarClick

@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.component.BotonesNavegacion
+import gonzalez.carlos.myapplication.component.IndicadorProgresoPrenda
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
@@ -56,6 +57,7 @@ fun RegistrarPrendaPaso3(
             .fillMaxSize()
             .background(colorResource(id = R.color.modoClaroBackground))
     ) {
+        IndicadorProgresoPrenda(pasoActual = 3)
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -66,7 +68,7 @@ fun RegistrarPrendaPaso3(
                 text = "Registrar Prenda",
                 modifier = Modifier.fillMaxWidth(),
                 color = colorTexto,
-                fontSize = 21.sp,
+                fontSize = 25.sp,
                 fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -76,7 +78,7 @@ fun RegistrarPrendaPaso3(
             Text(
                 text = "Unos detalles más",
                 color = colorTexto,
-                fontSize = 24.sp,
+                fontSize = 25.sp,
                 fontFamily = PlusJakartaSansFontFamily,
                 fontWeight = FontWeight.Bold
             )

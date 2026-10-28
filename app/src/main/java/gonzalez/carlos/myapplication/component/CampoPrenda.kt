@@ -49,7 +49,8 @@ fun CampoPrenda(etiqueta: String, ejemplo: String){
                     fontWeight = FontWeight.Normal
                     )
                           },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .height(50.dp),
             singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = colorResource(id = R.color.AddImageBackground),
