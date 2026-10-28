@@ -1,6 +1,7 @@
 package gonzalez.carlos.myapplication.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -13,7 +14,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Checkroom
@@ -30,21 +30,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.data.OutfitItem
 import gonzalez.carlos.myapplication.data.sampleOutfitItems
+import gonzalez.carlos.myapplication.data.sampleUserProfile
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
 fun OutfitsScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit = {},
     onOutfitClick: (OutfitItem) -> Unit = {},
     onAddClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {},
     selectedNavTab: Int = 1,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
@@ -78,32 +78,42 @@ fun OutfitsScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                    .padding(horizontal = 20.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
-                    onClick = onBackClick,
-                    modifier = Modifier.size(36.dp)
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFF8B0000)),
+                    contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Regresar",
-                        tint = DarkBrown,
-                        modifier = Modifier.size(24.dp)
+                    Image(
+                        painter = painterResource(id = R.drawable.profilepfp),
+                        contentDescription = "Avatar de Usuario",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize().clickable { onProfileClick() }
                     )
                 }
 
-                Text(
-                    text = if (filterSource == "mis") "Mis Outfits" else "Explorar Outfits",
-                    fontFamily = PlusJakartaSansFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    color = DarkBrown,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.weight(1f)
-                )
+                Spacer(modifier = Modifier.width(12.dp))
 
-                Spacer(modifier = Modifier.size(36.dp))
+                Column {
+                    Text(
+                        text = "CloudCloset",
+                        fontFamily = PlusJakartaSansFontFamily,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 13.sp,
+                        color = DarkBrown
+                    )
+                    Text(
+                        text = "Bienvenido, ${sampleUserProfile.name}!",
+                        fontFamily = PlusJakartaSansFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        color = DarkBrown
+                    )
+                }
             }
 
             Row(

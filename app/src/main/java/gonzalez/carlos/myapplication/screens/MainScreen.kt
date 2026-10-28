@@ -44,6 +44,7 @@ fun MainScreen(
     onSeeAllClothesClick: () -> Unit = {},
     onSeeAllOutfitsClick: () -> Unit = {},
     onAddClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {},
     selectedNavTab: Int = 2,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
@@ -83,7 +84,7 @@ fun MainScreen(
                         painter = painterResource(id = R.drawable.profilepfp),
                         contentDescription = "Avatar de Usuario",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize().clickable { onProfileClick() }
                     )
                 }
 

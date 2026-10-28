@@ -42,6 +42,7 @@ fun ClosetScreen(
     modifier: Modifier = Modifier,
     onItemClick: (ClothingItem) -> Unit = {},
     onAddClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {},
     selectedNavTab: Int = 0,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
@@ -80,7 +81,7 @@ fun ClosetScreen(
                         painter = painterResource(id = R.drawable.profilepfp),
                         contentDescription = "Avatar de Usuario",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize().clickable { onProfileClick() }
                     )
                 }
 

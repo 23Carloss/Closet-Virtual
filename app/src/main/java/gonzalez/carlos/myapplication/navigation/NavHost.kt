@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import gonzalez.carlos.myapplication.data.sampleClothingItems
+import gonzalez.carlos.myapplication.data.sampleOutfitItems
 import gonzalez.carlos.myapplication.screens.*
 
 @Composable
@@ -76,6 +77,9 @@ fun AppNavigation(
                 onAddClick = {
                     navController.navigate(RegistrarPrendaRoute)
                 },
+                onProfileClick = {
+                    navigateToTab(3)
+                },
                 selectedNavTab = 0,
                 onNavTabSelected = navigateToTab
             )
@@ -141,7 +145,7 @@ fun AppNavigation(
                         popUpTo<LoginRoute> { inclusive = true }
                     }
                 },
-                selectedNavTab = 4,
+                selectedNavTab = 3,
                 onNavTabSelected = navigateToTab
             )
         }
@@ -150,6 +154,9 @@ fun AppNavigation(
             MainScreen(
                 onItemClick = { item ->
                     navController.navigate(DetallePrendaRoute(item.id))
+                },
+                onOutfitClick = { outfit ->
+                    navController.navigate(DetalleOutfitRoute(outfit.id))
                 },
                 onSeeAllClothesClick = {
                     navigateToTab(0)
@@ -160,6 +167,9 @@ fun AppNavigation(
                 onAddClick = {
                     navController.navigate(RegistrarPrendaRoute)
                 },
+                onProfileClick = {
+                    navigateToTab(3)
+                },
                 selectedNavTab = 2,
                 onNavTabSelected = navigateToTab
             )
@@ -167,8 +177,40 @@ fun AppNavigation(
 
         composable<OutfitsRoute> {
             OutfitsScreen(
-                onBackClick = { navController.popBackStack() },
+                onOutfitClick = { outfit ->
+                    navController.navigate(DetalleOutfitRoute(outfit.id))
+                },
                 onAddClick = { navController.navigate(CrearOutfitRoute) },
+                onProfileClick = { navigateToTab(3) },
+                selectedNavTab = 1,
+                onNavTabSelected = navigateToTab
+            )
+        }
+
+        composable<DetalleOutfitRoute> { backStackEntry ->
+            val detail: DetalleOutfitRoute = backStackEntry.toRoute()
+            val outfit = sampleOutfitItems.find { it.id == detail.outfitId } ?: sampleOutfitItems.first()
+
+            DetalleOutfitScreen(
+                outfit = outfit,
+                onBackClick = { navController.popBackStack() },
+                onEditClick = { navController.navigate(EditarOutfitRoute(outfit.id)) },
+                onDeleteClick = { navController.popBackStack() },
+                onItemClick = { item -> navController.navigate(DetallePrendaRoute(item.id)) },
+                selectedNavTab = 1,
+                onNavTabSelected = navigateToTab
+            )
+        }
+
+        composable<EditarOutfitRoute> { backStackEntry ->
+            val detail: EditarOutfitRoute = backStackEntry.toRoute()
+            val outfit = sampleOutfitItems.find { it.id == detail.outfitId } ?: sampleOutfitItems.first()
+
+            EditarOutfitScreen(
+                outfit = outfit,
+                onBackClick = { navController.popBackStack() },
+                onSaveSuccess = { navController.popBackStack() },
+                onSelectFromClosetClick = { navController.navigate(SeleccionarPrendaRoute) },
                 selectedNavTab = 1,
                 onNavTabSelected = navigateToTab
             )

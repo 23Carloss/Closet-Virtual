@@ -32,6 +32,12 @@ object ProfileRoute
 object OutfitsRoute
 
 @Serializable
+data class DetalleOutfitRoute(val outfitId: String)
+
+@Serializable
+data class EditarOutfitRoute(val outfitId: String)
+
+@Serializable
 object CrearOutfitRoute
 
 @Serializable
