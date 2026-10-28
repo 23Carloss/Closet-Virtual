@@ -50,7 +50,7 @@ fun OutfitsScreen(
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Todos") }
-    var filterSource by remember { mutableStateOf("mis") } // "mis" vs "explorar"
+    var filterSource by remember { mutableStateOf("mis") }
     var outfitsList by remember { mutableStateOf(sampleOutfitItems) }
 
     val categories = listOf("Todos", "Diario", "Noche", "Favoritos")
