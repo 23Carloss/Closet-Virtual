@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.data.ClothingItem
 import gonzalez.carlos.myapplication.data.sampleClothingItems
+import gonzalez.carlos.myapplication.data.sampleUserProfile
 import gonzalez.carlos.myapplication.ui.theme.BackgroundCream
 import gonzalez.carlos.myapplication.ui.theme.DarkBrown
 import gonzalez.carlos.myapplication.ui.theme.FieldBackground
@@ -123,7 +124,7 @@ fun SeleccionarPrenda(
                         color = DarkBrown
                     )
                     Text(
-                        text = "Bienvenido, @Nombre!",
+                        text = "Bienvenido, ${sampleUserProfile.name}!",
                         fontFamily = PlusJakartaSansFontFamily,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,

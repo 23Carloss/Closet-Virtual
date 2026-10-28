@@ -89,6 +89,20 @@ fun AppNavigation(
             DetallePrendaScreen(
                 item = item,
                 onBackClick = { navController.popBackStack() },
+                onEditClick = { navController.navigate(EditarPrendaRoute(item.id)) },
+                selectedNavTab = 0,
+                onNavTabSelected = navigateToTab
+            )
+        }
+
+        composable<EditarPrendaRoute> { backStackEntry ->
+            val detail: EditarPrendaRoute = backStackEntry.toRoute()
+            val item = sampleClothingItems.find { it.id == detail.itemId } ?: sampleClothingItems.first()
+
+            EditarPrendaScreen(
+                item = item,
+                onBackClick = { navController.popBackStack() },
+                onSaveSuccess = { navController.popBackStack() },
                 selectedNavTab = 0,
                 onNavTabSelected = navigateToTab
             )

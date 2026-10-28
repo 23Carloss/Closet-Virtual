@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.data.ClothingItem
 import gonzalez.carlos.myapplication.data.sampleClothingItems
+import gonzalez.carlos.myapplication.data.sampleUserProfile
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
@@ -94,7 +95,7 @@ fun ClosetScreen(
                         color = DarkBrown
                     )
                     Text(
-                        text = "Bienvenido, @Nombre!",
+                        text = "Bienvenido, ${sampleUserProfile.name}!",
                         fontFamily = PlusJakartaSansFontFamily,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,

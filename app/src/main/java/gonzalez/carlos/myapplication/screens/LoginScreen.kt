@@ -26,13 +26,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import gonzalez.carlos.myapplication.R
+import gonzalez.carlos.myapplication.data.sampleUserProfile
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier, onNavigateToRegister: () -> Unit = {}, onForgotPassword: () -> Unit = {},
     onLoginSuccess: () -> Unit = {}, onBiometricAuth: () -> Unit = {}) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf(sampleUserProfile.email) }
+    var password by remember { mutableStateOf("123456") }
 
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }

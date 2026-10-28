@@ -33,6 +33,7 @@ import gonzalez.carlos.myapplication.data.ClothingItem
 import gonzalez.carlos.myapplication.data.OutfitItem
 import gonzalez.carlos.myapplication.data.sampleClothingItems
 import gonzalez.carlos.myapplication.data.sampleOutfitItems
+import gonzalez.carlos.myapplication.data.sampleUserProfile
 import gonzalez.carlos.myapplication.ui.theme.*
 
 @Composable
@@ -97,7 +98,7 @@ fun MainScreen(
                         color = DarkBrown
                     )
                     Text(
-                        text = "Bienvenido, @Nombre!",
+                        text = "Bienvenido, ${sampleUserProfile.name}!",
                         fontFamily = PlusJakartaSansFontFamily,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,

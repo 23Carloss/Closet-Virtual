@@ -15,6 +15,9 @@ object ArmarioRoute
 data class DetallePrendaRoute(val itemId: String)
 
 @Serializable
+data class EditarPrendaRoute(val itemId: String)
+
+@Serializable
 object RegistrarPrendaRoute
 @Serializable
 object RegistrarPrendaRoute2
