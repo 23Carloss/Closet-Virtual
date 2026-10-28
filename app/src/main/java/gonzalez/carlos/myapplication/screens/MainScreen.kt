@@ -163,27 +163,6 @@ fun MainScreen(
                         }
                     }
                 }
-
-                Surface(
-                    modifier = Modifier
-                        .size(46.dp)
-                        .clickable { },
-                    shape = RoundedCornerShape(12.dp),
-                    color = FieldBackground,
-                    border = BorderStroke(1.5.dp, LightBrownBorder)
-                ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.FilterAlt,
-                            contentDescription = "Filtro",
-                            tint = DarkBrown,
-                            modifier = Modifier.size(22.dp)
-                        )
-                    }
-                }
             }
 
             Spacer(modifier = Modifier.height(14.dp))
