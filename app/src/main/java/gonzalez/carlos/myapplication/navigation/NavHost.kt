@@ -254,7 +254,7 @@ fun AppNavigation(
                 camisa = camisa,
                 pantalon = pantalon,
                 onBackClick = { navController.popBackStack() },
-                onSave = { navController.navigate(InicioRoute) { popUpTo<InicioRoute> { inclusive = false }; launchSingleTop = true } }
+                onSave = { _, _ -> navController.navigate(InicioRoute) { popUpTo<InicioRoute> { inclusive = false }; launchSingleTop = true } }
             )
         }
     }

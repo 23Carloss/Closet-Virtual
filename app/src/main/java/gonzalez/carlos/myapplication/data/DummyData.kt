@@ -57,6 +57,39 @@ val sampleClothingItems = listOf(
         dotColor = Color(0xFFC9936B),
         totalUses = 6,
         avgUsesPerMonth = "2.0"
+    ),
+    ClothingItem(
+        id = "6",
+        title = "Reloj de cuero marrón",
+        category = "ACCESORIOS",
+        brand = "Fossil",
+        size = "Única",
+        tags = listOf("Elegante", "Formal"),
+        dotColor = Color(0xFFC87A4B),
+        totalUses = 14,
+        avgUsesPerMonth = "4.0"
+    ),
+    ClothingItem(
+        id = "7",
+        title = "Gafas de sol oscuras",
+        category = "ACCESORIOS",
+        brand = "Ray-Ban",
+        size = "Única",
+        tags = listOf("Casual", "Verano"),
+        dotColor = Color(0xFF3E2A1E),
+        totalUses = 9,
+        avgUsesPerMonth = "3.0"
+    ),
+    ClothingItem(
+        id = "8",
+        title = "Mochila táctica negra",
+        category = "ACCESORIOS",
+        brand = "Herschel",
+        size = "Única",
+        tags = listOf("Urbano", "Viaje"),
+        dotColor = Color(0xFFC9936B),
+        totalUses = 11,
+        avgUsesPerMonth = "3.2"
     )
 )
 
