@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="modoClaroBackground">#1C1713</color>
+    <color name="fontColor">#F3ECE4</color>
+    <color name="AddImageBackground">#28201B</color>
+    <color name="fotoPrendaBackground">#28201B</color>
+    <color name="ButtonContinueBackground">#A85832</color>
+    <color name="Stroke">#483A30</color>
+</resources>

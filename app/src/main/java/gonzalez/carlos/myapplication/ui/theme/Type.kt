@@ -30,37 +30,31 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
-        color = DarkBrown
+        fontSize = 28.sp
     ),
     titleMedium = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 22.sp,
-        color = DarkBrown
+        fontSize = 22.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 15.sp,
-        color = DarkBrown
+        fontSize = 15.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        color = DarkBrown
+        fontSize = 14.sp
     ),
     labelLarge = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        color = DarkBrown
+        fontSize = 14.sp
     ),
     labelMedium = TextStyle(
         fontFamily = PlusJakartaSansFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 13.sp,
-        color = DarkBrown
+        fontSize = 13.sp
     )
 )
