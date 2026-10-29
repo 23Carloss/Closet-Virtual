@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +46,7 @@ fun MainScreen(
     onSeeAllOutfitsClick: () -> Unit = {},
     onAddClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
+    onDailyOutfitClick: () -> Unit = {},
     selectedNavTab: Int = 2,
     onNavTabSelected: (Int) -> Unit = {}
 ) {
@@ -292,6 +294,16 @@ fun MainScreen(
                         modifier = Modifier.size(28.dp)
                     )
                 }
+            }
+
+            OutlinedButton(
+                onClick = onDailyOutfitClick,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp).height(46.dp),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.5.dp, LightBrownBorder),
+                colors = ButtonDefaults.outlinedButtonColors(colorResource(id = R.color.AddImageBackground))
+            ) {
+                Text("Registrar outfit de hoy", fontFamily = PlusJakartaSansFontFamily, fontWeight = FontWeight.Bold, color = DarkBrown)
             }
 
             AppBottomNavigation(

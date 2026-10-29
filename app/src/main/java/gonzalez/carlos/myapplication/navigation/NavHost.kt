@@ -167,6 +167,7 @@ fun AppNavigation(
                 onAddClick = {
                     navController.navigate(RegistrarPrendaRoute)
                 },
+                onDailyOutfitClick = { navController.navigate(OutfitDiarioPaso1Route) },
                 onProfileClick = {
                     navigateToTab(3)
                 },
@@ -232,6 +233,28 @@ fun AppNavigation(
                 onItemClick = { navController.popBackStack() },
                 selectedNavTab = 1,
                 onNavTabSelected = navigateToTab
+            )
+        }
+
+        composable<OutfitDiarioPaso1Route> {
+            OutfitDiarioPaso1Screen(
+                onBackClick = { navController.popBackStack() },
+                onContinue = { camisa, pantalon ->
+                    navController.navigate(OutfitDiarioPaso2Route(camisa.id, pantalon.id))
+                }
+            )
+        }
+
+        composable<OutfitDiarioPaso2Route> { backStackEntry ->
+            val route: OutfitDiarioPaso2Route = backStackEntry.toRoute()
+            val prendas = gonzalez.carlos.myapplication.data.sampleClothingItems
+            val camisa = prendas.find { it.id == route.camisaId } ?: prendas.first()
+            val pantalon = prendas.find { it.id == route.pantalonId } ?: prendas.first()
+            OutfitDiarioPaso2Screen(
+                camisa = camisa,
+                pantalon = pantalon,
+                onBackClick = { navController.popBackStack() },
+                onSave = { navController.navigate(InicioRoute) { popUpTo<InicioRoute> { inclusive = false }; launchSingleTop = true } }
             )
         }
     }

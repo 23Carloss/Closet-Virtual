@@ -23,10 +23,12 @@ fun BotonesNavegacion(
     onAtrasClick: () -> Unit = {},
     onContinuarClick: () -> Unit = {},
     textoAtras: String = "Atras",
-    textoContinuar: String = "Continuar"
+    textoContinuar: String = "Continuar",
+    modifier: Modifier = Modifier,
+    continuarHabilitado: Boolean = true
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         OutlinedButton(
@@ -46,6 +48,7 @@ fun BotonesNavegacion(
         }
         Button(
             onClick = onContinuarClick,
+            enabled = continuarHabilitado,
             modifier = Modifier.weight(2f)
                 .height(40.dp),
             shape = RoundedCornerShape(12.dp),

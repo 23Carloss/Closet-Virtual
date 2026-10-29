@@ -44,4 +44,10 @@ object CrearOutfitRoute
 object SeleccionarPrendaRoute
 
 @Serializable
+object OutfitDiarioPaso1Route
+
+@Serializable
+data class OutfitDiarioPaso2Route(val camisaId: String, val pantalonId: String)
+
+@Serializable
 object InicioRoute

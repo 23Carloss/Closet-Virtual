@@ -22,7 +22,7 @@ import gonzalez.carlos.myapplication.R
 import gonzalez.carlos.myapplication.ui.theme.PlusJakartaSansFontFamily
 
 @Composable
-fun IndicadorProgresoPrenda(pasoActual: Int) {
+fun IndicadorProgresoPrenda(pasoActual: Int, totalPasos: Int = 3) {
     val colorActivo = colorResource(id = R.color.ButtonContinueBackground)
     val colorInactivo = colorResource(id = R.color.Stroke)
 
@@ -32,7 +32,7 @@ fun IndicadorProgresoPrenda(pasoActual: Int) {
             .padding(horizontal = 20.dp, vertical = 5.dp)
     ) {
         Text(
-            text = "Paso $pasoActual de 3",
+            text = "Paso $pasoActual de $totalPasos",
             modifier = Modifier.fillMaxWidth(),
             color = colorResource(id = R.color.fontColor),
             fontSize = 12.sp,
@@ -45,7 +45,7 @@ fun IndicadorProgresoPrenda(pasoActual: Int) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            repeat(3) { indice ->
+            repeat(totalPasos) { indice ->
                 Spacer(
                     modifier = Modifier
                         .weight(1f)

@@ -46,6 +46,17 @@ val sampleClothingItems = listOf(
         dotColor = Color(0xFFC87A4B),
         totalUses = 12,
         avgUsesPerMonth = "3.0"
+    ),
+    ClothingItem(
+        id = "5",
+        title = "Tenis casuales blancos",
+        category = "ZAPATOS",
+        brand = "Converse",
+        size = "26",
+        tags = listOf("Casual", "Básico"),
+        dotColor = Color(0xFFC9936B),
+        totalUses = 6,
+        avgUsesPerMonth = "2.0"
     )
 )
 
