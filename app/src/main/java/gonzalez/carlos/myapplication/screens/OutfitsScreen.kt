@@ -354,7 +354,9 @@ fun OutfitsScreen(
 fun OutfitCard(
     item: OutfitItem,
     onClick: () -> Unit,
-    onFavoriteToggle: () -> Unit
+    onFavoriteToggle: () -> Unit,
+    selectionMode: Boolean = false,
+    isSelected: Boolean = false
 ) {
     Card(
         modifier = Modifier
@@ -362,6 +364,7 @@ fun OutfitCard(
             .height(230.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(18.dp),
+        border = if (selectionMode && isSelected) BorderStroke(2.dp, Color(0xFFC87A4B)) else null,
         colors = CardDefaults.cardColors(containerColor = Color(0xFF3E2A1E)),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -456,14 +459,24 @@ fun OutfitCard(
                         }
                     }
 
-                    Icon(
-                        imageVector = if (item.isFavorite) Icons.Default.Star else Icons.Outlined.StarOutline,
-                        contentDescription = "Favorito",
-                        tint = if (item.isFavorite) Color(0xFFF1C40F) else Color(0xFFC9936B),
-                        modifier = Modifier
-                            .size(22.dp)
-                            .clickable { onFavoriteToggle() }
-                    )
+                    if (selectionMode) {
+                        Text(
+                            text = if (isSelected) "✓" else "",
+                            color = Color.White,
+                            fontFamily = PlusJakartaSansFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
+                    } else {
+                        Icon(
+                            imageVector = if (item.isFavorite) Icons.Default.Star else Icons.Outlined.StarOutline,
+                            contentDescription = "Favorito",
+                            tint = if (item.isFavorite) Color(0xFFF1C40F) else Color(0xFFC9936B),
+                            modifier = Modifier
+                                .size(22.dp)
+                                .clickable { onFavoriteToggle() }
+                        )
+                    }
                 }
             }
         }
