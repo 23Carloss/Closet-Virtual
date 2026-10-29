@@ -110,6 +110,6 @@ fun RegistrarPrendaScreen(
 
 @Preview
 @Composable
-fun previewRegistroPrenda(){
+fun PreviewRegistroPrenda(){
     RegistrarPrendaScreen()
 }

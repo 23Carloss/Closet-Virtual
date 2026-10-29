@@ -77,7 +77,6 @@ fun EditarPrendaScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Header con botón de regresar, título y subtítulo
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -122,14 +121,14 @@ fun EditarPrendaScreen(
                 Spacer(modifier = Modifier.size(36.dp))
             }
 
-            // Formulario desplazable
+            // Formulario
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 20.dp, vertical = 8.dp)
             ) {
-                // Vista previa / Foto de la prenda
+                // Foto de la prenda
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -168,7 +167,7 @@ fun EditarPrendaScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Campo: Nombre de la prenda
+                // Nombre de la prenda
                 CustomTextField(
                     label = "Nombre de la prenda",
                     value = title,
@@ -181,7 +180,7 @@ fun EditarPrendaScreen(
 
                 Spacer(modifier = Modifier.height(14.dp))
 
-                // Campo: Categoría (ExposedDropdownMenuBox)
+                // Categoría
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = "Categoría",
@@ -266,7 +265,7 @@ fun EditarPrendaScreen(
 
                 Spacer(modifier = Modifier.height(14.dp))
 
-                // Campo: Marca
+                // Marca
                 CustomTextField(
                     label = "Marca",
                     value = brand,
@@ -275,7 +274,7 @@ fun EditarPrendaScreen(
 
                 Spacer(modifier = Modifier.height(14.dp))
 
-                // Campo: Talla
+                // Talla
                 CustomTextField(
                     label = "Talla",
                     value = size,
@@ -284,7 +283,7 @@ fun EditarPrendaScreen(
 
                 Spacer(modifier = Modifier.height(14.dp))
 
-                // Campo: Etiquetas
+                // Etiquetas
                 CustomTextField(
                     label = "Etiquetas (separadas por coma)",
                     value = tagsInput,
@@ -343,7 +342,6 @@ fun EditarPrendaScreen(
                 Spacer(modifier = Modifier.height(20.dp))
             }
 
-            // Barra de navegación inferior
             AppBottomNavigation(
                 selectedTab = selectedNavTab,
                 onTabSelected = onNavTabSelected
